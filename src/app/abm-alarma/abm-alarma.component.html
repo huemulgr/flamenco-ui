@@ -1,0 +1,108 @@
+<h3>Alarmas sensor {{sensor.nombreAbreviado}} - {{sensor.mac}}&nbsp;
+  <button class="boton2" (click)="onClickAlta()">
+    <img src="assets/images/plus_icon.png" height="30px" style="vertical-align:middle">
+  </button>
+</h3>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th >
+        Sensor
+      </th>
+      <th >
+        Nombre
+      </th>
+      <th >
+        Habilitado
+      </th>
+      <th >
+        Aviso aplicación
+      </th>
+      <th >
+        Umbral sup.
+      </th>
+      <th >
+        Umbral inf.
+      </th>
+      <th width="160px">
+        Acciones
+      </th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor="let alarma of alarmas">
+      <td >
+        {{alarma.sensor}}
+      </td>
+      <td >
+        {{alarma.nombre}}
+      </td>
+      <td >
+        {{alarma.habilitado}}
+      </td>
+      <td >
+        {{alarma.habilitadoAvisoCelular}}
+      </td>
+      <td >
+        {{alarma.umbralSuperior}}
+      </td>
+      <td >
+        {{alarma.umbralInferior}}
+      </td>
+      <td >
+        <button class="boton2" (click)="onClickModif(alarma)">
+          <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickBaja(alarma)">
+          <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!--alta / edicion-->
+<app-modal id="popup-alarma">
+  <div style="max-height:60vh; width:1024px; overflow-y:scroll;">
+  <h2>Alarma</h2>
+  <hr>
+	  <form class="form-style-2" #formAlarma="ngForm">
+		  <label><span>Nombre: </span>
+		    <textarea name="nombre" maxlength="100" rows="4" required>
+		    </textarea>
+		  </label>
+		  
+		  <label><span>Habilitado: </span>
+		    <input name="habilitado" type="checkbox">
+		  </label>
+		
+		  <label><span>Notificacion en celular: </span>
+		    <input name="noficar" type="checkbox">
+		  </label>
+		
+		  <label><span>Umbral inferior: </span>
+		    <input name="umbralInf" type="number" step="0.01" required>
+		  </label>
+		  
+		  <label><span>Umbral superior: </span>
+		    <input name="umbralSup" type="number" step="0.01" required>
+		  </label>
+		  
+		  <input type="submit" value="Guardar cambios">
+    </form>
+	</div>
+	<hr>
+	<div style="text-align:right">
+    <button class="boton1" (click)="onSubmitAlarma()">Aceptar</button>
+    <button class="boton1" (click)="onCancelar('popup-alarma')">Cancelar</button>
+  </div>
+</app-modal>
+
+<!-- popup eliminar (si, no) -->
+<app-modal id="popup-eliminar-alarma">
+  <p>¿Esta seguro que desea eliminar la alarma del sistema?</p>
+  <div style="text-align:center">
+    <button class="boton1" (click)="deleteAlarma()">Si</button>
+    <button class="boton1" (click)="onCancelar('popup-eliminar-alarma')">No</button>
+  </div>
+</app-modal>

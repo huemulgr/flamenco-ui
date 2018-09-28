@@ -1,0 +1,192 @@
+/* Add application styles & imports to this file! */
+html, body {
+  margin: 0px;
+  padding: 0px;
+  min-height: 100%;
+  position: relative;
+  font-family: helvetica;  
+}
+
+
+/*separador*/
+hr {
+  border: 0;
+  height: 1px;
+  margin-bottom: 20px;
+  background-image: linear-gradient(
+    to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)
+  );
+}
+/*titulos de seccion*/
+h2 {
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: lighter; 
+	letter-spacing: 5px;
+	margin-bottom:0px;
+}
+
+
+/*tablas*/
+table.tabla{ 
+	width: 100%; 
+	border-collapse: collapse;
+}
+.tabla tr:nth-of-type(odd) { 
+	background: #f9f9f9; 
+}
+.tabla tr:hover, .tabla tr.selected {
+  	background: #eee;
+}
+.tabla th { 
+	background-image: linear-gradient(
+    	#f9a, #d50
+  	); 
+	color: #e8e8e8; 
+	font-weight: bold; 
+}
+.tabla td, .tabla th { 
+	padding: 6px; 
+	border-bottom: 1px solid #ddd; 
+	text-align: left; 
+}
+
+/*formularios*/
+.form-style-2 fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.form-style-2 input:required:invalid,
+.form-style-2 select:required:invalid,
+.form-style-2 textarea:required:invalid {
+  border-color: red;
+}
+.form-style-2{
+  padding: 10px 12px 10px 10px;
+}
+.form-style-2 label{
+  display: block;
+  margin: 0px 0px 15px 0px;
+}
+.form-style-2 label > span {
+  width: 280px;
+  float: left;
+  padding-top: 8px;
+  padding-right: 5px;
+}
+.form-style-2 input, 
+.form-style-2 select,
+.form-style-2 textarea {
+  width: 250px; 
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #C2C2C2;
+  box-shadow: 1px 1px 4px #EBEBEB;
+  -moz-box-shadow: 1px 1px 4px #EBEBEB;
+  -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 7px;
+  outline: none;
+  font-family:helvetica;
+  font-size:0.9em;
+}
+.form-style-2 input:focus {
+  border: 1px solid #0C0;
+}
+.form-style-2 input[type=textarea]{
+  height:100px;
+  width: 55%;
+}
+.form-style-2 input[type=checkbox] {
+  height:25px;
+  margin-left:0;
+  box-shadow: none;
+  width:auto;
+}
+.form-style-2 input[type=radio] {
+  height:25px;
+  vertical-align: bottom;
+  width:auto;
+}
+
+/*botones de texto*/
+.form-style-2 input[type=submit],
+.form-style-2 input[type=button],
+button.boton1 {
+  margin: 10px 0;
+  border: none;
+  padding: 8px 15px 8px 15px;
+  margin: 0px 10px;
+  background: #333;
+  color: #eee;
+  box-shadow: 1px 1px 5px #333;
+  -moz-box-shadow: 1px 1px 5px #333;
+  -webkit-box-shadow: 1px 1px 4px #333;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+/*botones con una imagen dentro como los de abm*/
+button.boton2 {
+	height:30px;
+	width:30px;
+	border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  background: #333;
+  box-shadow: 1px 1px 2px #333;
+  -moz-box-shadow: 1px 1px 2px #333;
+  -webkit-box-shadow: 1px 1px 2px #333;
+  border:none;
+	padding: none;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	vertical-align:middle;
+}
+.boton2 img {
+  height:50%;
+  vertical-align:middle;
+}
+button:hover {
+	cursor: pointer;
+}
+
+/*botones para tabs en parte superior*/
+button.boton3 {
+  background-color: #f5f5f5;
+  border: 1px solid #eee;
+}
+button.boton3:active {
+	background-color: #ffffff;
+  border-top: 2px solid #d50;
+  border-bottom: none;
+}
+
+.form-style-2 input[type=submit]:hover,
+.form-style-2 input[type=button]:hover, 
+button.boton1:hover,
+button.boton2:hover{
+  background: #111;
+  color: #eee;
+  box-shadow: 1px 1px 5px #710;
+  -moz-box-shadow: 1px 1px 5px #710;
+}
+
+.form-style-2 input[type=submit]:disabled{
+  visibility: hidden;
+}
+
+.button-imagen {
+  background: none;
+  border: none;
+  text-align: center;
+  vertical-align: center;
+}
+
+label.radio1 {
+	display:inline;
+}

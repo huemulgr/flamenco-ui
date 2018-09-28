@@ -1,0 +1,16 @@
+<div *ngIf="planta.rutaImagen != ''">
+  <p>Por favor, haga click en la ubicación del punto de sensado sobre la planta</p>
+  <div style="position:relative">
+	  <div style="display:inline-block; vertical-align:top;" id="plano" [class]="estiloPlano" (click)="onClick($event)">
+	      <img [src]="planta.rutaImagen" />
+	  </div>
+	  <div id="marcador" *ngIf="puntoSensado.coordY !== undefined" 
+	      [style.top.px]="puntoSensado.coordY" 
+	      [style.left.px]="puntoSensado.coordX">
+	    <p>&nbsp;&nbsp;{{puntoSensado.nombreCorto}}</p>
+	  </div>
+	</div>  
+</div>
+
+
+

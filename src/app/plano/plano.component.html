@@ -1,0 +1,13 @@
+<div style="position:relative">
+  <div style="display:inline-block; vertical-align:top;" id="plano" [class]="estiloPlano" (click)="prueba1($event)">
+      <img [src]="planta.rutaImagen" />
+  </div>
+  <app-mas *ngFor="let estado of estadoActual"
+  	[estado] = "estado"
+  	[idPlantaSeleccionada] = "planta.id"
+  >
+  </app-mas>
+</div>
+
+
+

@@ -1,0 +1,62 @@
+<h3>&nbsp;&nbsp;Automatización sensor: {{sensor.nombreAbreviado}}</h3>
+
+<button class="boton1" (click)="onClickAlta()">Relé de salida 1</button>
+<button class="boton1" (click)="onClickAlta()">Relé de salida 2</button>
+
+<h3>Automatización de reles</h3> 
+<form class="form-style-2" #formCompUmbral="ngForm">  
+    <span>Modo de activación: 
+      <label class="radio1"><input name="comp" type="radio" value="false" checked>Manual</label>
+      <label class="radio1"><input name="comp" type="radio" value="true">Por temperatura</label>
+      <label class="radio1"><input name="comp" type="radio" value="true">Por horario</label>
+    </span><br>
+    
+    
+<hr>
+<h3>Por temperatura</h3>   
+    <label><span>Umbral inferior: </span>
+      <input name="umbralInf" type="number" step="0.01" required>
+    </label>
+    
+    <label><span>Umbral superior: </span>
+      <input name="umbralSup" type="number" step="0.01" required>
+    </label>
+  
+    <label><span>Habilitar activación por relé de entrada: </span>
+      <input name="re-habilitado" type="checkbox">
+    </label>
+    <fieldset disabled>
+      <label><span>Relé de entrada: </span>        
+        <label class="radio1"><input name="re" type="radio" value="false" checked>Relé entrada 1</label>
+        <label class="radio1"><input name="re" type="radio" value="true">Relé entrada 2</label>
+      </label><br>  
+      
+      <label><span>Comportamiento relé entrada y umbral: </span>
+        <label class="radio1"><input name="and" type="radio" value="false" checked>Cualquiera de los dos</label>
+        <label class="radio1"><input name="and" type="radio" value="true">Ambos a la vez</label>
+      </label>  
+    </fieldset>
+    
+    <br/><br/>
+    <button class="boton1" (click)="onSubmitCompUmbral()">Guardar cambios</button>
+  </form>
+<hr>
+
+<h3>Por temporización</h3>  
+<form class="form-style-2" #formCompHora="ngForm">
+  <label><span>Hora de inicio de automatización: </span>
+    <input name="umbralInf" type="time" required>
+  </label>
+  
+  <label><span>Hora de fin de automatización: </span>
+    <input name="umbralSup" type="time" required>
+  </label>
+ 
+  <label><span>Periodo de activación: </span>
+    <input name="periodo" type="time" required>
+  </label>
+  
+  <br/><br/>
+  <button class="boton1" (click)="onSubmitCompUmbral()">Guardar cambios</button>
+</form>
+<hr>

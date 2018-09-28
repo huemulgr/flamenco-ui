@@ -1,0 +1,164 @@
+<h2>Configuracion MAS</h2>
+<hr>
+<div *ngIf = "!vistaAlarmas && !vistaComportamientos">
+<h3>Sensores 
+  <button class="boton2" (click)="onClickAlta()">
+    <img src="assets/images/plus_icon.png" height="30px">
+  </button>
+</h3>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>
+        Planta
+      </th>
+      <th>
+        Nombre corto
+      </th>
+      <th>
+        Habilitado
+      </th>
+      <th >
+        Ubicacion
+      </th>
+      <th >
+        Min. muestreo
+      </th>
+      <th>
+        Delta muestreo
+      </th>
+      <th>
+        MAC
+      </th>
+      <th>
+        Coordinador
+      </th>
+      <th>
+        Acciones
+      </th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor="let sensor of sensores">
+      <td >
+        {{sensor.planta}}
+      </td>
+      <td >
+        {{sensor.nombreAbreviado}}
+      </td>
+      <td >
+        {{sensor.habilitado}}
+      </td>
+      <td >
+        {{sensor.descripcionUbicacion}}
+      </td>
+      <td >
+        {{sensor.minutosMuestreo}}
+      </td>
+      <td >
+        {{sensor.deltaMuestreo}}
+      </td>
+      <td >
+        {{sensor.mac}}
+      </td>
+      <td >
+        {{sensor.macDelCoordinador}}
+      </td>
+      <td >
+        <button class="boton2" (click)="onClickModif(sensor)">
+          <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickAlertas(sensor)">
+          <img src="assets/images/alert_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickComportamientos(sensor)">
+          <img src="assets/images/comportamientos.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickBaja(sensor)">
+          <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<app-modal id="popup-sensor">
+ <div style="height:80vh; width:60vw; overflow-y:scroll" > 
+	<h2>Configuración general</h2> 
+	<hr>
+	<form class="form-style-2" #formMas="ngForm" (ngSubmit)="onSubmit()">
+	  <label><span>Habilitado: </span>
+	    <input name="habilitado" type="checkbox"
+	    [(ngModel)]="sensorSeleccionado.habilitado" >
+	  </label>
+	
+	  <label><span>MAC: </span>
+	    <input name="mac" type="text" required
+	    [(ngModel)]="sensorSeleccionado.mac" >
+	  </label>
+	  
+	  <label><span>MAC Coordinador: </span>
+	    <input name="mac-coordinador" type="text" required
+	    [(ngModel)]="sensorSeleccionado.macDelCoordinador" >
+	  </label>
+	      
+	  <label><span>Punto de sensado: </span>
+	    <select name="puntoDeSensado"  
+	    [(ngModel)]="puntoSensadoSeleccionado">
+	      <option [ngValue]="undefined" disabled selected>-- Seleccionar punto de sensado --</option>
+	      <option *ngFor="let puntoDeSensado of puntosDeSensado" 
+	      [ngValue]="puntoDeSensado"
+	      [selected]="puntoDeSensado.id == sensorSeleccionado.idPuntoSensado ? true : undefined"
+	      >
+          {{puntoDeSensado.nombreCorto}}
+        </option>
+	    </select>
+	  </label>
+	  
+	  <label><span>Ubicación: </span>
+	    <textarea name="ubicacion" maxlength="100" rows="4" required
+	    [(ngModel)]="sensorSeleccionado.descripcionUbicacion">
+	    </textarea>
+	  </label>
+	
+	  <h3>Muestreo en la nube</h3>
+	  <label><span>Intervalo: </span>
+	    <input name="muestreo-tiempo" type="number" min="0" required
+	    [(ngModel)]="sensorSeleccionado.minutosMuestreo">
+	  </label>      
+	  
+	  <label><span>Variación de temperatura: </span>
+	    <input name="muestreo-delta" type="number" step="0.01" min="0" required
+	    [(ngModel)]="sensorSeleccionado.deltaMuestreo">
+	  </label>
+	</form>	  
+ </div>	
+	  <hr>
+	  <div style="text-align:right">
+	    <button class="boton1" (click)="onSubmitSensor()">Aceptar</button>
+	    <button class="boton1" (click)="onCancelar('popup-sensor')">Cancelar</button>
+	  </div>
+</app-modal>
+
+<!-- popup eliminar (si, no) -->
+<app-modal id="popup-eliminar-sensor">
+  <p>¿Esta seguro que desea eliminar el sensor del sistema? <br><br>
+  Solo es posible eliminar aquellos sensores que no tengan mediciones registradas.
+  </p>
+  <div style="text-align:center">
+    <button class="boton1" (click)="deleteSensor()">Si</button>
+    <button class="boton1" (click)="onCancelar('popup-eliminar-sensor')">No</button>
+  </div>
+</app-modal>
+
+
+<app-abm-alarma 
+*ngIf="vistaAlarmas"
+[sensor]="sensorSeleccionado">
+</app-abm-alarma>
+
+<app-abm-comportamientos
+*ngIf="vistaComportamientos"
+[sensor]="sensorSeleccionado">
+</app-abm-comportamientos>

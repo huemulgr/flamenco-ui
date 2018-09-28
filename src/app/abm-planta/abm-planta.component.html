@@ -1,0 +1,88 @@
+<h2>PLANTAS
+  <button class="boton2" (click)="onClickAlta()">
+    <img src="assets/images/plus_icon.png" height="30px" style="vertical-align:middle">
+  </button>
+</h2>
+<hr>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th >
+        NOMBRE
+      </th>
+      <th >
+        HABILITADO
+      </th>
+      <th >
+        IMAGEN
+      </th>
+      <th width="160px">
+        ACCIONES
+      </th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor="let planta of plantas">
+      <td >
+        {{planta.nombre}}
+      </td>
+      <td >
+        {{planta.habilitado}}
+      </td>
+      <td >
+        <img [src]="planta.rutaImagen" height="100px">
+      </td>
+      <td >        
+        <button class="boton2" (click)="onClickModif(planta)">
+          <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickBaja(planta)">
+          <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!--alta / edicion-->
+<app-modal id="popup-planta">
+  <div style="max-height:60vh; width:1024px; overflow-y:scroll;">
+  <h2>Planta</h2>
+  <hr>
+	<form class="form-style-2" #formPlanta="ngForm">
+	  <fieldset>
+	  <label><span>Nombre: </span>
+	    <input name="nombre" type="text" 
+	    [(ngModel)]="plantaSeleccionada.nombre" required >
+	  </label>
+	
+	  <label><span>Habilitado: </span>
+	    <input name="habilitado" type="checkbox" 
+	    [(ngModel)]="plantaSeleccionada.habilitado">
+	  </label>
+	
+	  <label><span>Imagen: </span>    
+	    <input name="imagen" type="file" accept="image/*" (change)="onFileChange($event)" 
+	    [(ngModel)]="plantaSeleccionada.rutaImagen">
+	  </label>
+	  
+    <img [src]="plantaSeleccionada.rutaImagen"/><br>
+	  
+	  </fieldset>
+	</form>
+	</div>
+	<hr>
+	<div style="text-align:right">
+    <button class="boton1" (click)="onSubmitPlanta()">Aceptar</button>
+    <button class="boton1" (click)="onCancelar('popup-planta')">Cancelar</button>
+  </div>
+</app-modal>
+
+<!-- popup eliminar (si, no) -->
+<app-modal id="popup-eliminar-planta">
+  <p>¿Esta seguro que desea eliminar la planta del sistema?</p>
+  <div style="text-align:center">
+    <button class="boton1" (click)="deletePlanta()">Si</button>
+    <button class="boton1" (click)="onCancelar('popup-eliminar-planta')">No</button>
+  </div>
+</app-modal>

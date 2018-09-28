@@ -1,0 +1,86 @@
+<!--header-->
+<h2>
+  Configuracion general
+  <button class="boton1"  (click)="this.ocultarModal = false" >
+    <img src="assets/images/edit_icon.png" height="30px"/>
+  </button></h2>
+<hr>
+
+<!--formulario datos generales-->
+<form class="form-style-2" #formGeneral="ngForm" (ngSubmit)="onSubmitConfigGral()">
+  <fieldset [disabled]="configGeneralDisabled">
+  <label><span>Razón social: </span>
+    <input name="razonSocial" type="text" 
+    [(ngModel)]="empresa.razonSocial" required >
+  </label>
+
+  <label><span>Cambiar contraseña de configuración: </span>
+    <input name="cambiaPass" type="checkbox" 
+    [(ngModel)]="configGral.cambiaPass">
+  </label>
+
+  <label><span>Contraseña actual: </span>
+    <input name="passConfig" type="password" 
+    [(ngModel)]="configGral.passConfig" 
+    [disabled]="!configGral.cambiaPass" required >
+  </label>
+
+  <label><span>Nueva contraseña: </span>
+    <input name="passConfigNueva" type="password" 
+    [(ngModel)]="empresa.passwordConfiguracion" 
+    [disabled]="!configGral.cambiaPass" required >
+  </label>
+
+  <label><span>Repetir nueva contraseña: </span>
+    <input name="passNueva2" type="password" 
+    [(ngModel)]="configGral.passNueva2" 
+    [disabled]="!configGral.cambiaPass" required >
+  </label>
+  <br />
+  <hr>
+  <h3>Impresión</h3>
+  <label><span>Encabezado informes impresos: </span>
+    <textarea name="encabezado" type="text" cols="25" rows="10"
+    [(ngModel)]="empresa.encabezado" required></textarea>
+  </label>
+
+  <label><span>Hora inicial de impresión [HH:mm:ss]: </span>
+    <input name="horaImpresionIni" type="time" 
+    [(ngModel)]="empresa.primerRegistro" required>
+  </label>
+
+  <label><span>Periodo de impresión [Minutos]: </span>
+    <input name="periodoImpresion" type="number" 
+    [(ngModel)]="empresa.periodo" required>
+  </label>
+  
+  <label><span>Columnas impresion: </span>
+    <input name="columnas" type="number" 
+    [(ngModel)]="empresa.columnasImpresion" required>
+  </label>
+  
+  <input type="submit" value="Guardar cambios" (ngSubmit)="onSubmitConfigGral()">
+  </fieldset>
+
+<!-- <pre>{{formGeneral.value | json}}</pre> -->
+</form>
+
+
+<!-- abm de plantas en la misma pantalla de config. general -->
+<button (click)="onClickVerAbmPlantas()">a</button>
+<app-abm-planta *ngIf="verAbmPlantas == true"></app-abm-planta>
+
+<!--ventana modal password de configuracion: reemplazar x app-modal que es mas versatil-->
+<div class="grisado" [hidden]="ocultarModal" (click) = "this.ocultarModal = true"></div>
+<div class="form-style-2 modalPassword" [hidden]="ocultarModal">
+  <form #formModal="ngForm" (ngSubmit)="onSubmitModalPassword()">
+    <label>Ingrese contraseña de configuración</label>
+    <input type="password"><br>
+    <label></label><br>
+    <input type="submit" value="Aceptar">
+    <input type="button" value="Cancelar" (click)="this.ocultarModal = true" > 
+  </form>
+</div>
+
+
+<app-abm-punto-sensado></app-abm-punto-sensado>

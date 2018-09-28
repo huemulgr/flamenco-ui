@@ -1,0 +1,12 @@
+<h2>Estado actual</h2>
+<hr>
+<button class="boton3" *ngFor="let planta of plantas" 
+(click)="onClickPlanta(planta)">
+  {{planta.nombre}}
+</button>
+<h3>{{plantaSeleccionada.nombre}}</h3>
+<app-plano
+[estadoActual]="estadoActual"
+[planta]="plantaSeleccionada"
+>
+</app-plano>

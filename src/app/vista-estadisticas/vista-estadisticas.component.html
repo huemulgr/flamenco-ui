@@ -1,0 +1,38 @@
+<h2>Estadisticas</h2>
+<hr/>
+
+<form class="form-style-2">
+	<label>
+	  <span>Punto de sensado:  </span>
+	
+	<select name="punto" class="form-style-2" [(ngModel)]="puntoDeSensadoSeleccionado" required>
+		<option disabled checked selected>--Seleccionar punto de sensado--</option>
+		<option *ngFor="let puntoDeSensado of puntosDeSensado">
+		  {{puntoDeSensado.nombreCorto}}
+		</option>
+	</select>
+	</label>
+	<label><span>Fecha de inicio: </span>
+	  <input name="fechaIni" type="date" [(ngModel)]="fechaInicio" required>
+	</label>
+	
+	<label><span>Fecha de fin: </span>
+	  <input name="fechaFin" type="date" [(ngModel)]="fechaFin" required>
+	</label>
+	<br><br>
+	
+	<input type="submit" value="Mostrar gráfica">
+</form>
+
+<div style="display: block;">
+  <canvas baseChart 
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+  </canvas>
+</div>

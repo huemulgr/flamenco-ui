@@ -1,0 +1,70 @@
+<h2>Estado actual</h2>
+<hr>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th >
+        NOMBRE CORTO
+      </th>
+      <th >
+        NOMBRE LARGO
+      </th>
+      <th >
+        TEMPERATURA
+      </th>
+      <th >
+        ESTADO
+      </th>
+      <th >
+        RELE E1
+      </th>
+      <th >
+        RELE E2
+      </th>
+      <th >
+        RELE S1
+      </th>
+      <th >
+        RELE S2
+      </th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor = "let estado of estadoActual">
+      <td >
+        {{estado.nombreCorto}}
+      </td>
+      <td >
+        {{estado.nombreLargo}}
+      </td>
+      <td >
+        {{estado.valor}}
+      </td>
+      <td >
+        ok
+      </td>
+      <td >
+        {{estado.estadoR1E}}
+      </td>
+      <td >
+        {{estado.estadoR2E}}
+      </td>
+      <td *ngIf = "estado.estadoR1S; then thenBlock; else elseBlock">
+      </td>
+      <td *ngIf = "estado.estadoR2S; then thenBlock; else elseBlock">        	
+      </td>
+      
+      <ng-template #thenBlock>
+      	<td>
+        	<img class="on" src="assets/images/switchOn.png" height="30px">
+        </td>
+      </ng-template>
+      <ng-template #elseBlock>
+      	<td>
+        	<img class="off" src="assets/images/switchOff.png" height="30px">
+        </td>
+      </ng-template>
+      
+    </tr>
+  </tbody>
+</table>
