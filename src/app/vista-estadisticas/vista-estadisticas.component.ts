@@ -14,13 +14,13 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 export class VistaEstadisticasComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
     
-  private puntosDeSensado: PuntoDeSensado[];  
-  private puntoDeSensadoSeleccionado: PuntoDeSensado = new PuntoDeSensado(); 
-  private lecturas: Lectura[];  
-  private fechaInicio: string;
-  private fechaFin: string;    
-  private widthCurva: number = 1000;  
-  private mostrarCurva: string = "hidden";
+  puntosDeSensado: PuntoDeSensado[];  
+  puntoDeSensadoSeleccionado: PuntoDeSensado = new PuntoDeSensado(); 
+  lecturas: Lectura[];  
+  fechaInicio: string;
+  fechaFin: string;    
+  widthCurva: number = 1000;  
+  mostrarCurva: string = "hidden";
     
   constructor(private lecturaService: LecturaService, private puntoDeSensadoService: PuntoDeSensadoService) { }
 

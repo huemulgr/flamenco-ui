@@ -12,9 +12,9 @@ export class AbmUsuariosComponent implements OnInit {
 
   usuarioSeleccionado: Usuario = new Usuario();
   usuarios: Usuario[];
-  private repetirPassword: string;
-  private cambiaPassword: boolean = false;    
-  private msgErrorPass: boolean = false;
+  repetirPassword: string;
+  cambiaPassword: boolean = false;    
+  msgErrorPass: boolean = false;
     
   constructor(private usuarioService: UsuarioService
         , private modalService: ModalService) { }
