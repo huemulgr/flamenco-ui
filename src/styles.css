@@ -53,13 +53,14 @@ table.tabla{
 
 /*formularios*/
 .form-style-2 fieldset {
+	display: inline-block;
   border: 0;
   margin: 0;
   padding: 0;
 }
-.form-style-2 input:required:invalid,
-.form-style-2 select:required:invalid,
-.form-style-2 textarea:required:invalid {
+.form-style-2 input:required:invalid:focus,
+.form-style-2 select:required:invalid:focus,
+.form-style-2 textarea:required:invalid:focus {
   border-color: red;
 }
 .form-style-2{
@@ -75,7 +76,13 @@ table.tabla{
   padding-top: 8px;
   padding-right: 5px;
 }
-.form-style-2 input, 
+.form-style-2 input[type=number], 
+.form-style-2 input[type=date],
+.form-style-2 input[type=text],
+.form-style-2 input[type=email],
+.form-style-2 input[type=password],
+.form-style-2 input[type=time],
+.form-style-2 input[type=file],
 .form-style-2 select,
 .form-style-2 textarea {
   width: 250px; 
@@ -116,7 +123,8 @@ table.tabla{
 /*botones de texto*/
 .form-style-2 input[type=submit],
 .form-style-2 input[type=button],
-button.boton1 {
+button.boton1,
+input.boton1 {
   margin: 10px 0;
   border: none;
   padding: 8px 15px 8px 15px;

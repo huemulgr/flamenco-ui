@@ -4,28 +4,28 @@
   <thead>
     <tr>
       <th >
-        NOMBRE CORTO
+        Nombre corto
       </th>
       <th >
-        NOMBRE LARGO
+        Nombre largo
       </th>
       <th >
-        TEMPERATURA
+        Temperatura
       </th>
       <th >
-        ESTADO
+        Estado
       </th>
       <th >
-        RELE E1
+        Relé E1
       </th>
       <th >
-        RELE E2
+        Relé E2
       </th>
       <th >
-        RELE S1
+        Relé S1
       </th>
       <th >
-        RELE S2
+        Relé S2
       </th>
     </tr>
   </thead>
@@ -44,10 +44,10 @@
         ok
       </td>
       <td >
-        {{estado.estadoR1E}}
+        {{estado.estadoR1E ? 'On' : 'Off'}}
       </td>
       <td >
-        {{estado.estadoR2E}}
+        {{estado.estadoR2E ? 'On' : 'Off'}}
       </td>
       <td *ngIf = "estado.estadoR1S; then thenBlock; else elseBlock">
       </td>

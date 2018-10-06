@@ -7,34 +7,35 @@
 <hr>
 
 <!--formulario datos generales-->
-<form class="form-style-2" #formGeneral="ngForm" (ngSubmit)="onSubmitConfigGral()">
+<form class="form-style-2" #formGeneral="ngForm" 
+    (ngSubmit)="onSubmitConfigGral()" ngNativeValidate>
   <fieldset [disabled]="configGeneralDisabled">
   <label><span>Razón social: </span>
     <input name="razonSocial" type="text" 
     [(ngModel)]="empresa.razonSocial" required >
   </label>
 
-  <label><span>Cambiar contraseña de configuración: </span>
+  <label *ngIf="empresa.id"><span>Cambiar contraseña de configuración: </span>
     <input name="cambiaPass" type="checkbox" 
-    [(ngModel)]="configGral.cambiaPass">
+    [(ngModel)]="cambiaPass">
   </label>
 
-  <label><span>Contraseña actual: </span>
-    <input name="passConfig" type="password" 
-    [(ngModel)]="configGral.passConfig" 
-    [disabled]="!configGral.cambiaPass" required >
+  <label *ngIf="empresa.id"><span>Contraseña actual: </span>
+    <input name="passActual" type="password" 
+    [(ngModel)]="passActual" 
+    [disabled]="!cambiaPass" required >
   </label>
 
   <label><span>Nueva contraseña: </span>
     <input name="passConfigNueva" type="password" 
     [(ngModel)]="empresa.passwordConfiguracion" 
-    [disabled]="!configGral.cambiaPass" required >
+    [disabled]="!cambiaPass" required >
   </label>
 
   <label><span>Repetir nueva contraseña: </span>
     <input name="passNueva2" type="password" 
-    [(ngModel)]="configGral.passNueva2" 
-    [disabled]="!configGral.cambiaPass" required >
+    [(ngModel)]="passNueva2" 
+    [disabled]="!cambiaPass" required >
   </label>
   <br />
   <hr>
@@ -59,16 +60,15 @@
     [(ngModel)]="empresa.columnasImpresion" required>
   </label>
   
-  <input type="submit" value="Guardar cambios" (ngSubmit)="onSubmitConfigGral()">
+  <input type="submit" value="Guardar cambios">
   </fieldset>
-
 <!-- <pre>{{formGeneral.value | json}}</pre> -->
 </form>
 
 
 <!-- abm de plantas en la misma pantalla de config. general -->
-<button (click)="onClickVerAbmPlantas()">a</button>
-<app-abm-planta *ngIf="verAbmPlantas == true"></app-abm-planta>
+<hr>
+<app-abm-planta></app-abm-planta>
 
 <!--ventana modal password de configuracion: reemplazar x app-modal que es mas versatil-->
 <div class="grisado" [hidden]="ocultarModal" (click) = "this.ocultarModal = true"></div>
@@ -82,5 +82,6 @@
   </form>
 </div>
 
-
+<br><br>
+<hr>
 <app-abm-punto-sensado></app-abm-punto-sensado>

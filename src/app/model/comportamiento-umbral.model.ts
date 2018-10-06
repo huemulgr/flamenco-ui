@@ -14,10 +14,10 @@ export class ComportamientoUmbral{
     nroContactorSalida: number;
 
     constructor() {
-        this.habilitado = 
-        this.contactorEntrada = 
-        this.contactorSalida =
-        this.condicionY = 
+        this.habilitado = false;
+        this.contactorEntrada = false;
+        this.contactorSalida = false;
+        this.condicionY = false;
         this.habilitarContEntrada = false;
     }
 }

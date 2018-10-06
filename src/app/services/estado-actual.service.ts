@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse }from '@angular/common/http';
 import { map, catchError } from "rxjs/operators";
 import { Observable, throwError, empty } from 'rxjs';
+import { SharedService } from 'src/app/services/shared.service';
 
 import { EstadoMas } from "src/app/model/estado-mas.model";
 

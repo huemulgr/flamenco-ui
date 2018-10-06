@@ -22,7 +22,7 @@
         Ubicacion
       </th>
       <th >
-        Min. muestreo
+        Minutos muestreo
       </th>
       <th>
         Delta muestreo
@@ -47,7 +47,7 @@
         {{sensor.nombreAbreviado}}
       </td>
       <td >
-        {{sensor.habilitado}}
+        {{sensor.habilitado ? 'Si' : 'No'}}
       </td>
       <td >
         {{sensor.descripcionUbicacion}}
@@ -66,16 +66,16 @@
       </td>
       <td >
         <button class="boton2" (click)="onClickModif(sensor)">
-          <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
+          <img src="assets/images/edit_icon.png" height="30px">
         </button>
         <button class="boton2" (click)="onClickAlertas(sensor)">
-          <img src="assets/images/alert_icon.png" height="30px" style="vertical-align:middle">
+          <img src="assets/images/alert_icon.png" height="30px">
         </button>
         <button class="boton2" (click)="onClickComportamientos(sensor)">
-          <img src="assets/images/comportamientos.png" height="30px" style="vertical-align:middle">
+          <img src="assets/images/comportamientos.png" height="30px">
         </button>
         <button class="boton2" (click)="onClickBaja(sensor)">
-          <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
+          <img src="assets/images/delete_icon.png" height="30px">
         </button>
       </td>
     </tr>
@@ -84,10 +84,12 @@
 </div>
 
 <app-modal id="popup-sensor">
- <div style="height:80vh; width:60vw; overflow-y:scroll" > 
-	<h2>Configuración general</h2> 
-	<hr>
-	<form class="form-style-2" #formMas="ngForm" (ngSubmit)="onSubmit()">
+  
+	<form class="form-style-2" #formMas="ngForm" (ngSubmit)="onSubmitSensor()" ngNativeValidate>
+	  <div style="height:80vh; width:60vw; overflow-y: auto" >
+	  <h2>Configuración general</h2> 
+    <hr>
+    <fieldset>
 	  <label><span>Habilitado: </span>
 	    <input name="habilitado" type="checkbox"
 	    [(ngModel)]="sensorSeleccionado.habilitado" >
@@ -104,13 +106,11 @@
 	  </label>
 	      
 	  <label><span>Punto de sensado: </span>
-	    <select name="puntoDeSensado"  
-	    [(ngModel)]="puntoSensadoSeleccionado">
+	    <select name="puntoDeSensado" [(ngModel)]="puntoSensadoSeleccionado"
+	          [compareWith]="compareFn">
 	      <option [ngValue]="undefined" disabled selected>-- Seleccionar punto de sensado --</option>
 	      <option *ngFor="let puntoDeSensado of puntosDeSensado" 
-	      [ngValue]="puntoDeSensado"
-	      [selected]="puntoDeSensado.id == sensorSeleccionado.idPuntoSensado ? true : undefined"
-	      >
+	          [ngValue]="puntoDeSensado">
           {{puntoDeSensado.nombreCorto}}
         </option>
 	    </select>
@@ -132,13 +132,16 @@
 	    <input name="muestreo-delta" type="number" step="0.01" min="0" required
 	    [(ngModel)]="sensorSeleccionado.deltaMuestreo">
 	  </label>
-	</form>	  
- </div>	
-	  <hr>
-	  <div style="text-align:right">
-	    <button class="boton1" (click)="onSubmitSensor()">Aceptar</button>
-	    <button class="boton1" (click)="onCancelar('popup-sensor')">Cancelar</button>
+	  </fieldset>
 	  </div>
+	  
+	  <hr>
+    <div style="text-align:right">
+      <input type="submit" value="Aceptar">
+      <button type="button" class="boton1" (click)="onCancelar('popup-sensor')">Cancelar</button>
+    </div>
+	</form>	 
+	  
 </app-modal>
 
 <!-- popup eliminar (si, no) -->
@@ -152,6 +155,10 @@
   </div>
 </app-modal>
 
+<button (click)="onClickBack()" class="boton2" 
+    *ngIf = "vistaAlarmas || vistaComportamientos">
+  <img src="assets/images/back_icon.png" height="30px"/>
+</button>
 
 <app-abm-alarma 
 *ngIf="vistaAlarmas"

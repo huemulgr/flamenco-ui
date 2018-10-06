@@ -1,3 +1,78 @@
-<p>
-vista-admin-usuarios works!
-</p>
+<h2>Administración de usuarios</h2>
+<hr>
+<h3>Perfiles&nbsp;
+  <button class="boton2" (click)="onClickAltaModif()">
+    <img src="assets/images/plus_icon.png" height="30px" style="vertical-align:middle">
+  </button>
+</h3>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th >
+        Nombre
+      </th>
+      <th >
+        Usuarios asignados
+      </th>
+      <th >
+        Sensores asignados
+      </th>
+      <th width="160px">
+        Acciones
+      </th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor="let perfil of perfiles" >
+      <td >
+        {{perfil.nombre}}
+      </td>
+      <td >
+        {{perfil.usuariosAsignados ? perfil.usuariosAsignados : 'Ninguno'}}
+      </td>
+      <td >
+        {{perfil.sensoresAsignados ? perfil.sensoresAsignados : 'Ninguno'}}
+      </td>
+      <td >
+        <button class="boton2" (click)="onClickAltaModif(perfil)">
+          <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickBaja(perfil)">
+          <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-modal id="popup-perfil">
+  <form class="form-style-2" #formPerfil="ngForm" ngNativeValidate
+      (ngSubmit)="onSubmitPerfil()">
+	  <div style="max-height:80vh; width:600px; overflow-y:auto;">
+		  <h2>Perfil</h2>
+		  <hr>
+		  <label><span>Nombre: </span>
+		    <input type="text" name="nombre" maxlength="100" required
+		       [(ngModel)]="perfilSeleccionado.nombre">
+		  </label>
+	  </div>
+	  <hr>
+		<div style="text-align:right">
+		  <input class="boton1" type="submit" value="Aceptar">
+		  <button type="button" class="boton1" (click)="onCancelar('popup-perfil')">Cancelar</button>
+		</div>  
+  </form>
+</app-modal>
+<p>*agregar manejo de asignaciones usuario-perfil-sensor*</p> 
+<app-modal id="popup-eliminar-perfil">
+  <p>¿Esta seguro que desea eliminar el perfil del sistema?</p>
+  <div style="text-align:center">
+    <button class="boton1" (click)="deletePerfil()">Si</button>
+    <button class="boton1" (click)="onCancelar('popup-eliminar-perfil')">No</button>
+  </div>
+</app-modal>
+
+<br>
+
+<app-abm-usuarios></app-abm-usuarios>
+

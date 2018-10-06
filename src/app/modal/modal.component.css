@@ -16,6 +16,7 @@
 .app-modal-body {
 	padding: 20px;
   background: #fff;
+  border-radius: 15px;
 }
 
 
@@ -29,8 +30,7 @@
 
     /* semi-transparent black  */
     background-color: #000;
-    opacity: 0.75;
-        
+    opacity: 0.75;  
     /* z-index must be below .app-modal and above everything else  */
     z-index: 900;
 }

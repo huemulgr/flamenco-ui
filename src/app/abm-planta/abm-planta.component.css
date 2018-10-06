@@ -1,7 +1,8 @@
 label>span {
 	width:150px;
 }
-
-input {
-	width: 400px;
+input[type=text],
+input[type=file] {
+	width:400px
 }
+

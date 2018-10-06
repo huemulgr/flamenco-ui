@@ -7,22 +7,19 @@
   <thead>
     <tr>
       <th >
-        Sensor
-      </th>
-      <th >
         Nombre
       </th>
       <th >
         Habilitado
       </th>
       <th >
-        Aviso aplicación
-      </th>
-      <th >
-        Umbral sup.
+        Notificación mobile
       </th>
       <th >
         Umbral inf.
+      </th>
+      <th >
+        Umbral sup.
       </th>
       <th width="160px">
         Acciones
@@ -32,22 +29,19 @@
   <tbody>  
     <tr *ngFor="let alarma of alarmas">
       <td >
-        {{alarma.sensor}}
-      </td>
-      <td >
         {{alarma.nombre}}
       </td>
       <td >
-        {{alarma.habilitado}}
+        {{alarma.habilitado==true ? 'Si' : 'No'}}
       </td>
       <td >
-        {{alarma.habilitadoAvisoCelular}}
-      </td>
-      <td >
-        {{alarma.umbralSuperior}}
+        {{alarma.habilitadoAvisoCelular==true ? 'Si' : 'No'}}
       </td>
       <td >
         {{alarma.umbralInferior}}
+      </td>
+      <td >
+        {{alarma.umbralSuperior}}
       </td>
       <td >
         <button class="boton2" (click)="onClickModif(alarma)">
@@ -63,39 +57,46 @@
 
 <!--alta / edicion-->
 <app-modal id="popup-alarma">
-  <div style="max-height:60vh; width:1024px; overflow-y:scroll;">
-  <h2>Alarma</h2>
-  <hr>
-	  <form class="form-style-2" #formAlarma="ngForm">
-		  <label><span>Nombre: </span>
-		    <textarea name="nombre" maxlength="100" rows="4" required>
-		    </textarea>
-		  </label>
-		  
-		  <label><span>Habilitado: </span>
-		    <input name="habilitado" type="checkbox">
-		  </label>
-		
-		  <label><span>Notificacion en celular: </span>
-		    <input name="noficar" type="checkbox">
-		  </label>
-		
-		  <label><span>Umbral inferior: </span>
-		    <input name="umbralInf" type="number" step="0.01" required>
-		  </label>
-		  
-		  <label><span>Umbral superior: </span>
-		    <input name="umbralSup" type="number" step="0.01" required>
-		  </label>
-		  
-		  <input type="submit" value="Guardar cambios">
+  
+    <form class="form-style-2" #formAlarma="ngForm" 
+	       (ngSubmit)="onSubmitAlarma()" ngNativeValidate>
+	    <div style="max-height:60vh; width:1024px; overflow-y: auto;">   
+			  <h2>Alarma</h2>
+        <hr>
+			  <fieldset>
+			  <label><span>Nombre: </span>
+			    <textarea name="nombre" maxlength="100" rows="4" required
+			        [(ngModel)]="alarmaSeleccionada.nombre"
+			    ></textarea>
+			  </label>
+			  
+			  <label><span>Habilitado: </span>
+			    <input name="habilitado" type="checkbox" 
+			    [(ngModel)]="alarmaSeleccionada.habilitado">
+			  </label>
+			
+			  <label><span>Notificacion en celular: </span>
+			    <input name="noficar" type="checkbox"
+			    [(ngModel)]="alarmaSeleccionada.habilitadoAvisoCelular">
+			  </label>
+			
+			  <label><span>Umbral inferior: </span>
+			    <input name="umbralInf" type="number" step="0.01" required
+			    [(ngModel)]="alarmaSeleccionada.umbralInferior">
+			  </label>
+			  
+			  <label><span>Umbral superior: </span>
+			    <input name="umbralSup" type="number" step="0.01" required
+			    [(ngModel)]="alarmaSeleccionada.umbralSuperior">
+			  </label>
+		  </fieldset>
+			</div>
+			<hr>
+			<div style="text-align:right">
+		    <input type="submit" value="Aceptar">
+		    <button type="button" class="boton1" (click)="onCancelar('popup-alarma')">Cancelar</button>
+		  </div>
     </form>
-	</div>
-	<hr>
-	<div style="text-align:right">
-    <button class="boton1" (click)="onSubmitAlarma()">Aceptar</button>
-    <button class="boton1" (click)="onCancelar('popup-alarma')">Cancelar</button>
-  </div>
 </app-modal>
 
 <!-- popup eliminar (si, no) -->

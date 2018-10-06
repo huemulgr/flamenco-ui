@@ -1,0 +1,105 @@
+<h3>Usuarios&nbsp;
+  <button class="boton2" (click)="onClickAltaModif()">
+    <img src="assets/images/plus_icon.png" height="30px" style="vertical-align:middle">
+  </button>
+</h3>
+<table class="tabla">
+  <thead>
+    <tr>
+      <th >
+        Usuario
+      </th>
+      <th >
+        Nombre completo
+      </th>
+      <th >
+        Email
+      </th>
+      <th >
+        Perfiles asignados
+      </th>
+      <th width="160px">
+        Acciones
+      </th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor="let usuario of usuarios" >
+      <td >
+        {{usuario.nombreUsuario}}
+      </td>
+      <td >
+        {{usuario.nombreCompleto}}
+      </td>
+      <td >
+        {{usuario.email}}
+      </td>
+      <td >
+        {{usuario.perfilesAsignados}}
+      </td>
+      <td >
+        <button class="boton2" (click)="onClickAltaModif(usuario)">
+          <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickBaja(usuario)">
+          <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-modal id="popup-usuario">
+  <form class="form-style-2" #formUsuario="ngForm" ngNativeValidate
+      (ngSubmit)="onSubmitUsuario()">
+    <div style="max-height:80vh; width:600px; overflow-y:auto;">
+      <h2>Usuario</h2>
+      <hr>
+      <fieldset>
+      <label><span>Nombre de usuario: </span>
+        <input type="text" name="nombreUsuario" maxlength="15" required
+           [(ngModel)]="usuarioSeleccionado.nombreUsuario">
+      </label>
+      <label><span>Nombre completo: </span>
+        <input type="text" name="nombreCompleto" maxlength="100" required
+           [(ngModel)]="usuarioSeleccionado.nombreCompleto">
+      </label>
+      <label><span>Email: </span>
+        <input type="email" name="email" maxlength="40" required
+           [(ngModel)]="usuarioSeleccionado.email">
+      </label>
+      <label *ngIf="usuarioSeleccionado.idusuario"
+      ><span>Cambia contraseña: </span>
+        <input type="checkbox" name="cambiaPassword" 
+           [(ngModel)]="cambiaPassword">
+      </label>
+      <label *ngIf="cambiaPassword || !usuarioSeleccionado.idusuario"
+      ><span>Contraseña: </span>
+        <input type="password" name="pass" maxlength="20" required
+           [(ngModel)]="usuarioSeleccionado.password">
+      </label>
+      <label *ngIf="cambiaPassword || !usuarioSeleccionado.idusuario"
+      ><span>Repetir contraseña: </span>
+        <input type="password" name="pass2" maxlength="20" required
+           [(ngModel)]="repetirPassword">
+      </label>
+      <p *ngIf="msgErrorPass" style="color:red">Las contraseñas ingresadas no coinciden</p>
+      </fieldset>
+    </div>
+    <hr>
+    <div style="text-align:right">
+      <input class="boton1" type="submit" value="Aceptar">
+      <button type="button" class="boton1" (click)="onCancelar('popup-usuario')">Cancelar</button>
+    </div>  
+  </form>
+</app-modal>
+ 
+<app-modal id="popup-eliminar-usuario">
+  <p>¿Esta seguro que desea eliminar el usuario del sistema?</p>
+  <div style="text-align:center">
+    <button class="boton1" (click)="deleteUsuario()">Si</button>
+    <button class="boton1" (click)="onCancelar('popup-eliminar-usuario')">No</button>
+  </div>
+</app-modal>
+
+ 

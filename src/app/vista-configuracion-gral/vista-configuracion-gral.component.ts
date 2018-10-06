@@ -30,14 +30,15 @@ export class VistaConfiguracionGralComponent implements OnInit {
 
   @ViewChild("formGeneral") formGeneral: any;
   @ViewChild("formModal") formModal: any;
-  configGral: ConfigGeneral = new ConfigGeneral();
-  configImpresion: ConfigImpresion = new ConfigImpresion();
+  cambiaPass: boolean;
+  passConfig: string;
+  passActual: string;
+  passNueva2: string;
   configGeneralDisabled;
   configImpresionDisabled;
   ocultarModal;
   empresas: Empresa[];
   empresa: Empresa = new Empresa();
-  verAbmPlantas: boolean;
   
   constructor(private service: EmpresaService, private modalService: ModalService) { }
 
@@ -46,7 +47,6 @@ export class VistaConfiguracionGralComponent implements OnInit {
     this.configGeneralDisabled = true;
     this.configImpresionDisabled = true;
     this.getEmpresa();
-    this.verAbmPlantas = false;
   }
   
   //hardcodeo id de empresa, suponiendo que vamos a tener uno solo con id = 1 por comodidad, cambiar en caso contrario  
@@ -59,31 +59,41 @@ export class VistaConfiguracionGralComponent implements OnInit {
           }
       );
   }
+  createEmpresa() {
+      this.service.create(this.empresa)
+      .subscribe(
+          (data: Empresa) => { 
+              this.getEmpresa();
+          }
+      );
+  }
   updateEmpresa() {
     this.service.update(this.empresa)
       .subscribe(
           (data: Empresa) => { 
-              this.empresa = data;
-              console.log(this.empresa + " actualizado");
+              this.getEmpresa();
           }
       );
   }
 
   onSubmitConfigGral() {
     if(this.formGeneral.valid) {
-      console.log(JSON.stringify(this.configGral));
-
-      //TODO: ver compatibilidad con campo Time de mysql por los segundos, segun el browser a veces no estan
-      
-      if(this.configGral.cambiaPass) {  
-        this.empresa.passwordActual = this.configGral.passConfig;  
+      if(this.cambiaPass) {  
+        this.empresa.passwordActual = this.passActual;  
       }
       
-      this.updateEmpresa();  
+      if(!this.empresa.id) {
+        //carga inicial
+        this.createEmpresa();
+      } else {
+        //las proximas veces siempre se actualiza la misma
+        this.updateEmpresa();
+      }  
         
       //reset inputs
-      this.configGral.cambiaPass = false;
-      this.configGral.passConfig = this.configGral.passNueva = this.configGral.passNueva2 = "";
+      this.cambiaPass = false;
+      this.passActual = ""; 
+      this.passNueva2 = "";
       
       this.configGeneralDisabled = true;
     }
@@ -96,10 +106,6 @@ export class VistaConfiguracionGralComponent implements OnInit {
       this.ocultarModal = true;
       this.configGeneralDisabled = false;
     }
-  }  
-    
-  onClickVerAbmPlantas() {
-    this.verAbmPlantas = !this.verAbmPlantas;
   }  
   
   openModal(id: string) {

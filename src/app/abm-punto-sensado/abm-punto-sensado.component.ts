@@ -23,6 +23,7 @@ export class AbmPuntoSensadoComponent implements OnInit {
 
   ngOnInit() {
       this.getPuntosDeSensado();
+      this.getPlantas();
   }
 
   getPuntosDeSensado() {
@@ -93,9 +94,14 @@ export class AbmPuntoSensadoComponent implements OnInit {
     this.puntoSensadoSeleccionado = new PuntoDeSensado();
   }
   onClickModif(puntoDeSensado: PuntoDeSensado) {
+    for(let planta of this.plantas) {
+      if(planta.id == puntoDeSensado.idPlanta) {
+        this.plantaSeleccionada = planta;    
+      }    
+    }  
     this.inicializarPopupAltaModif();
     this.esAlta = false;
-    this.puntoSensadoSeleccionado = puntoDeSensado;  
+    this.puntoSensadoSeleccionado = Object.assign({}, puntoDeSensado);  
   }
   onClickBaja(puntoDeSensado: PuntoDeSensado) {
       this.puntoSensadoSeleccionado = puntoDeSensado;
@@ -119,5 +125,10 @@ export class AbmPuntoSensadoComponent implements OnInit {
     //esto obliga a que se reinicie el componente de plano y quede vacio para la proxima operacion  
     this.resetPlanoModif = true;  
     this.plantaSeleccionada = new Planta();  
+  }  
+ 
+    
+  compareFn(c1: any, c2:any): boolean {     
+    return c1 && c2 ? c1.id === c2.id : c1 === c2; 
   }  
 }

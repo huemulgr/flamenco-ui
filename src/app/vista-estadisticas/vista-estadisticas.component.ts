@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LecturaService } from 'src/app/services/lectura.service';
 import { PuntoDeSensadoService } from 'src/app/services/punto-de-sensado.service';
+import { Lectura } from 'src/app/model/lectura.model';
 import { PuntoDeSensado } from 'src/app/model/punto-de-sensado.model';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
-export class AB{
-    public a: any;
-    public b: any;  
-    
-    constructor(a,b) {this.a=a; this.b=b}
-}
 
 @Component({
   selector: 'app-vista-estadisticas',
@@ -15,12 +12,17 @@ export class AB{
   styleUrls: ['./vista-estadisticas.component.css']
 })
 export class VistaEstadisticasComponent implements OnInit {
-
-  private puntosDeSensado: PuntoDeSensado[];  
-  private puntoDeSensadoSeleccionado: PuntoDeSensado = new PuntoDeSensado();  
-  private ab: AB[] = [new AB(1,2), new AB(3,4)];  
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
     
-  constructor(private puntoDeSensadoService: PuntoDeSensadoService) { }
+  private puntosDeSensado: PuntoDeSensado[];  
+  private puntoDeSensadoSeleccionado: PuntoDeSensado = new PuntoDeSensado(); 
+  private lecturas: Lectura[];  
+  private fechaInicio: string;
+  private fechaFin: string;    
+  private widthCurva: number = 1000;  
+  private mostrarCurva: string = "hidden";
+    
+  constructor(private lecturaService: LecturaService, private puntoDeSensadoService: PuntoDeSensadoService) { }
 
   ngOnInit() {
       this.getPuntosDeSensado();
@@ -36,15 +38,54 @@ export class VistaEstadisticasComponent implements OnInit {
       );    
   }    
     
+  getLecturas(idPuntoDeSensado:number, fechaDesde:string, fechaHasta:string) {
+    this.lecturaService.getLecturas(idPuntoDeSensado, fechaDesde, fechaHasta).
+      subscribe( 
+          (data) => { 
+              this.lecturas = data;
+              this.segregarDatosLecturas();
+          }
+      );    
+  }    
+    
+  //los datos de las lecturas se separan en ejes x(labels) e y(data)
+  private segregarDatosLecturas() {      
+      //vaciar datos anteriores
+      var dataY = new Array();
+      this.lineChartLabels = new Array<any>();
+      this.lineChartData = new Array<any>();
+      
+      //tomar el dato de cada registro      
+      for(let lectura of this.lecturas) {
+        dataY.push(lectura.valor);
+        this.lineChartLabels.push([lectura.hora, lectura.fecha]);
+      }
+      
+      //refrescar grafico
+      this.widthCurva = dataY.length * 75;
+      this.lineChartData.push({data: dataY, label:this.puntoDeSensadoSeleccionado.nombreCorto});    
+      this.chart.chart.config.data.labels = this.lineChartLabels;
+      this.mostrarCurva = "visible"; 
+  }  
+    
+  generarCurva() {  
+    this.getLecturas(this.puntoDeSensadoSeleccionado.id, this.fechaInicio, this.fechaFin); 
+  }  
+    
   // lineChart
-  public lineChartData: Array<any> = [
-    { data: [0, -5, -7, -4, 0, 4, 5, 6, 1, -3], label: 'temperatura' },
-  ];
-  public lineChartLabels: Array<any> = [
-    '14:00', '14:10', '14:20', '14:30', '14:40', '14:50', '15:00', '15:10', '15:20', '15:30' 
-  ];
+  public lineChartData: Array<any> = [{}];
+  public lineChartLabels: Array<any> = [];
   public lineChartOptions: any = {
-    responsive: true
+    responsive: true,
+    maintainAspectRatio: false,
+    /*  para ocultar eje y, en otro momento puede servir como mejora para que el eje acompañe el scroll
+    scales: {
+        yAxes: [{
+            ticks: {
+                display: false
+            }
+        }]
+    } */
   };
   public lineChartColors: Array<any> = [
     { // grey

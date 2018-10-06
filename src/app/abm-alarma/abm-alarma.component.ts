@@ -32,6 +32,7 @@ export class AbmAlarmaComponent implements OnInit {
       );
   }
   createAlarma() {
+    this.alarmaSeleccionada.idSensor = this.sensor.id;
     this.service.create(this.alarmaSeleccionada)
       .subscribe(
           (data) => { 
@@ -83,7 +84,7 @@ export class AbmAlarmaComponent implements OnInit {
   }
   onClickModif(alarma: Alarma) {
       this.esAlta = false;
-      this.alarmaSeleccionada = alarma;
+      this.alarmaSeleccionada = Object.assign({}, alarma);
       this.modalService.open("popup-alarma");
   }
   onClickBaja(alarma: Alarma) {

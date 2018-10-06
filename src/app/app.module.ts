@@ -19,21 +19,27 @@ import { PlanoComponent } from './plano/plano.component';
 import { PlanoModifComponent } from './plano-modif/plano-modif.component';
 import { MasComponent } from './mas/mas.component';
 
-import { EstadoActualService } from './services/estado-actual.service';
 import { AlarmaService } from './services/alarma.service';
 import { ComportamientoUmbralService } from './services/comportamiento-umbral.service';
 import { ComportamientoHoraService } from './services/comportamiento-hora.service';
 import { EmpresaService } from './services/empresa.service';
+import { EstadoActualService } from './services/estado-actual.service';
+import { PerfilService } from './services/perfil.service';
 import { PlantaService } from './services/planta.service';
 import { PuntoDeSensadoService } from './services/punto-de-sensado.service';
 import { SensorService } from './services/sensor.service';
+import { UsuarioService } from './services/usuario.service';
+
 import { ModalService } from './services/modal.service';
+import { SharedService } from './services/shared.service';
 import { ModalComponent } from './modal/modal.component';
 import { AbmAlarmaComponent } from './abm-alarma/abm-alarma.component';
 import { AbmComportamientosComponent } from './abm-comportamientos/abm-comportamientos.component';
 import { AbmPlantaComponent } from './abm-planta/abm-planta.component';
 import { AbmPuntoSensadoComponent } from './abm-punto-sensado/abm-punto-sensado.component';
 import { IgnoreSanitizePipe } from './ignore-sanitize.pipe';
+import { AbmUsuariosComponent } from './abm-usuarios/abm-usuarios.component';
+import { PopupGeneralComponent } from './popup-general/popup-general.component';
 
 
 const appRoutes: Routes = [
@@ -76,7 +82,7 @@ const appRoutes: Routes = [
     AbmComportamientosComponent,
     AbmPlantaComponent, 
     AbmPuntoSensadoComponent, 
-    IgnoreSanitizePipe 
+    IgnoreSanitizePipe, AbmUsuariosComponent, PopupGeneralComponent 
   ],
 
   bootstrap: [AppComponent],
@@ -88,9 +94,12 @@ const appRoutes: Routes = [
     ComportamientoUmbralService, 
     EmpresaService,
     EstadoActualService, 
+    PerfilService,
     PlantaService,
     PuntoDeSensadoService,
-    SensorService
+    SensorService,
+    SharedService,
+    UsuarioService
   ]
 })
 export class AppModule { }

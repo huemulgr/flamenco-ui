@@ -48,7 +48,7 @@
         {{punto.nombre}}
       </td>
       <td >
-        {{punto.habilitado}}
+        {{punto.habilitado ? 'Si' : 'No'}}
       </td>
       <td >
         {{punto.descripcion}}
@@ -83,72 +83,69 @@
 
 
 <!--alta / edicion-->
-<app-modal id="popup-puntoDeSensado">
-  <div style="height:80vh; min-width:700px; width:90vw; overflow-y:scroll;">
-  <h2>Punto de sensado</h2>
-  <hr>
-  <form class="form-style-2" #formPlanta="ngForm">
+<app-modal id="popup-puntoDeSensado">  
+  <form class="form-style-2" #formPlanta="ngForm" 
+      (ngSubmit)="onSubmitPuntoDeSensado()" ngNativeValidate>
+    <div style="height:80vh; min-width:700px; width:90vw; overflow-y: auto;">
+	  <h2>Punto de sensado</h2>
+	  <hr>
     <fieldset>
-    <label><span>Nombre: </span>
-      <input name="nombreRegistro" type="text" maxlength="10"
-      [(ngModel)]="puntoSensadoSeleccionado.nombre" required >
-    </label>
-    
-    <label><span>Nombre corto: </span>
-      <input name="nombreCorto" type="text" maxlength="5"
-      [(ngModel)]="puntoSensadoSeleccionado.nombreCorto" required >
-    </label>
-  
-    <label><span>Habilitado: </span>
-      <input name="habilitado" type="checkbox" 
-      [(ngModel)]="puntoSensadoSeleccionado.habilitado">
-    </label>
-  
-    <label><span>Descripción: </span>
-      <textarea name="nombreLargo" cols="25" rows="4"
-      [(ngModel)]="puntoSensadoSeleccionado.descripcion" required></textarea>
-    </label>
-    
-    <label><span>Orden impresión: </span>
-      <input name="ordenImpresion" type="number" min="1"
-      [(ngModel)]="puntoSensadoSeleccionado.ordenImpresion" required >
-    </label>
-    
-    <label><span>Orden grilla: </span>
-      <input name="ordenGrilla" type="number" min="1"
-      [(ngModel)]="puntoSensadoSeleccionado.ordenGrilla" required >
-    </label>
-    
-    <label><span>Página reporte: </span>
-      <input name="paginaReporte" type="number" min="1"
-      [(ngModel)]="puntoSensadoSeleccionado.pagina" required >
-    </label>
-    
-    <label><span>Planta: </span>
-      <select name="planta" [(ngModel)]="plantaSeleccionada" required>
-        <option [ngValue]="undefined" disabled>--Seleccionar planta--</option>
-        <option  *ngFor="let planta of plantas"
-            [ngValue]="planta"
-            [selected]="planta.id == puntoSensadoSeleccionado.idPlanta"
-            >
-          {{planta.nombre}}
-        </option>
-      </select>
-    </label>
-    
-    <app-plano-modif *ngIf="!resetPlanoModif"
-      [planta]="plantaSeleccionada"
-      [puntoSensado]="puntoSensadoSeleccionado">
-    </app-plano-modif>
-        
-    </fieldset>
-  </form>
-  </div>
-  <hr>
-  <div style="text-align:right">
-    <button class="boton1" (click)="onSubmitPuntoDeSensado()">Aceptar</button>
-    <button class="boton1" (click)="onCancelar('popup-puntoDeSensado')">Cancelar</button>
-  </div>
+	    <label><span>Nombre: </span>
+	      <input name="nombreRegistro" type="text" maxlength="10"
+	      [(ngModel)]="puntoSensadoSeleccionado.nombre" required >
+	    </label>
+	    
+	    <label><span>Nombre corto: </span>
+	      <input name="nombreCorto" type="text" maxlength="5"
+	      [(ngModel)]="puntoSensadoSeleccionado.nombreCorto" required >
+	    </label>
+	  
+	    <label><span>Habilitado: </span>
+	      <input name="habilitado" type="checkbox" 
+	      [(ngModel)]="puntoSensadoSeleccionado.habilitado">
+	    </label>
+	  
+	    <label><span>Descripción: </span>
+	      <textarea name="nombreLargo" cols="25" rows="4"
+	      [(ngModel)]="puntoSensadoSeleccionado.descripcion" required></textarea>
+	    </label>
+	    
+	    <label><span>Orden impresión: </span>
+	      <input name="ordenImpresion" type="number" min="1"
+	      [(ngModel)]="puntoSensadoSeleccionado.ordenImpresion" required >
+	    </label>
+	    
+	    <label><span>Orden grilla: </span>
+	      <input name="ordenGrilla" type="number" min="1"
+	      [(ngModel)]="puntoSensadoSeleccionado.ordenGrilla" required >
+	    </label>
+	    
+	    <label><span>Página reporte: </span>
+	      <input name="paginaReporte" type="number" min="1"
+	      [(ngModel)]="puntoSensadoSeleccionado.pagina" required >
+	    </label>
+	    
+	    <label><span>Planta: </span>
+	      <select name="planta" [(ngModel)]="plantaSeleccionada" [compareWith]="compareFn" required>
+	        <option [ngValue]="undefined" disabled>--Seleccionar planta--</option>
+	        <option  *ngFor="let planta of plantas" [ngValue]="planta">
+	          {{planta.nombre}}
+	        </option>
+	      </select>
+	    </label>
+	    
+	    <app-plano-modif *ngIf="!resetPlanoModif"
+	      [planta]="plantaSeleccionada"
+	      [puntoSensado]="puntoSensadoSeleccionado">
+	    </app-plano-modif>
+	    </fieldset>
+    </div>
+    <hr>
+	  <div style="text-align:right">
+	    <input type="submit" class="boton1" value="Aceptar">
+	    <button type="button" class="boton1" (click)="onCancelar('popup-puntoDeSensado')">Cancelar</button>
+	  </div>    
+  </form>  
 </app-modal>
 
 <!-- popup eliminar (si, no) -->

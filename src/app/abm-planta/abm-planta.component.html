@@ -8,16 +8,16 @@
   <thead>
     <tr>
       <th >
-        NOMBRE
+        Nombre
       </th>
       <th >
-        HABILITADO
+        Habilitado
       </th>
       <th >
-        IMAGEN
+        Imagen
       </th>
       <th width="160px">
-        ACCIONES
+        Acciones
       </th>
     </tr>
   </thead>
@@ -46,36 +46,38 @@
 
 <!--alta / edicion-->
 <app-modal id="popup-planta">
-  <div style="max-height:60vh; width:1024px; overflow-y:scroll;">
-  <h2>Planta</h2>
-  <hr>
-	<form class="form-style-2" #formPlanta="ngForm">
-	  <fieldset>
-	  <label><span>Nombre: </span>
-	    <input name="nombre" type="text" 
-	    [(ngModel)]="plantaSeleccionada.nombre" required >
-	  </label>
-	
-	  <label><span>Habilitado: </span>
-	    <input name="habilitado" type="checkbox" 
-	    [(ngModel)]="plantaSeleccionada.habilitado">
-	  </label>
-	
-	  <label><span>Imagen: </span>    
-	    <input name="imagen" type="file" accept="image/*" (change)="onFileChange($event)" 
-	    [(ngModel)]="plantaSeleccionada.rutaImagen">
-	  </label>
-	  
-    <img [src]="plantaSeleccionada.rutaImagen"/><br>
-	  
-	  </fieldset>
+  
+	<form class="form-style-2" #formPlanta="ngForm" 
+	   (ngSubmit)="onSubmitPlanta()" ngNativeValidate>
+	  <div style="max-height:70vh; width:1024px; overflow-y:auto;">
+	    <h2>Planta</h2>
+	    <hr>
+		  <fieldset>
+		  <label><span>Nombre: </span>
+		    <input name="nombre" type="text" 
+		    [(ngModel)]="plantaSeleccionada.nombre" required >
+		  </label>
+		
+		  <label><span>Habilitado: </span>
+		    <input name="habilitado" type="checkbox" 
+		    [(ngModel)]="plantaSeleccionada.habilitado">
+		  </label>
+		
+		  <label><span>Imagen: </span>    
+		    <input name="imagen" type="file" accept="image/*" (change)="onFileChange($event)" 
+		    [(ngModel)]="plantaSeleccionada.rutaImagen" 
+		    [required]="!plantaSeleccionada.rutaImagen">
+		  </label>
+		  
+	    <img [src]="plantaSeleccionada.rutaImagen"/><br>
+	    </fieldset>
+	  </div>
+	  <hr>
+	  <div style="text-align:right">
+	    <input type="submit" class="boton1" value="Aceptar">
+	    <button type="button" class="boton1" (click)="onCancelar('popup-planta')">Cancelar</button>
+	  </div>	  
 	</form>
-	</div>
-	<hr>
-	<div style="text-align:right">
-    <button class="boton1" (click)="onSubmitPlanta()">Aceptar</button>
-    <button class="boton1" (click)="onCancelar('popup-planta')">Cancelar</button>
-  </div>
 </app-modal>
 
 <!-- popup eliminar (si, no) -->

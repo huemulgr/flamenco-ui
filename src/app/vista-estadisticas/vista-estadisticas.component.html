@@ -1,13 +1,13 @@
 <h2>Estadisticas</h2>
 <hr/>
 
-<form class="form-style-2">
+<form class="form-style-2" (ngSubmit)="generarCurva()" style="display:inline-block">
 	<label>
 	  <span>Punto de sensado:  </span>
 	
 	<select name="punto" class="form-style-2" [(ngModel)]="puntoDeSensadoSeleccionado" required>
 		<option disabled checked selected>--Seleccionar punto de sensado--</option>
-		<option *ngFor="let puntoDeSensado of puntosDeSensado">
+		<option *ngFor="let puntoDeSensado of puntosDeSensado" [ngValue]="puntoDeSensado">
 		  {{puntoDeSensado.nombreCorto}}
 		</option>
 	</select>
@@ -21,18 +21,32 @@
 	</label>
 	<br><br>
 	
-	<input type="submit" value="Mostrar gráfica">
+	<input type="submit" value="Mostrar gráfica" 
+	   *ngIf="puntoDeSensadoSeleccionado && fechaInicio && fechaFin">
 </form>
 
-<div style="display: block;">
-  <canvas baseChart 
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)">
-  </canvas>
+<div id="divCurva" style="display: block; width:90vw; height:530px; overflow-x: auto; overflow-y: hidden"
+    [style.visibility]="mostrarCurva">
+  <p *ngIf="lecturas && lecturas.length < 1" 
+      style="text-align: center; font-size:1.5em;">No se encontraron mediciones</p>
+  <div style="position:relative; top:0; left:20px;"
+      [style.width.px]="widthCurva">
+    <canvas baseChart 
+	                height="500px" 
+	                [datasets]="lineChartData"
+	                [labels]="lineChartLabels"
+	                [options]="lineChartOptions"
+	                [colors]="lineChartColors"
+	                [legend]="lineChartLegend"
+	                [chartType]="lineChartType"
+	                (chartHover)="chartHovered($event)"
+	                (chartClick)="chartClicked($event)">
+	  </canvas>
+  </div>
 </div>
+
+<!-- ejemplo boton de scroll, cuando haya tiempo agregar con animacion para suavizar movimiento  
+<button onClick=
+	"document.getElementById('divCurva').scrollLeft += 500; console.log(document.getElementById('divCurva'));"
+	>Scroll derecha</button>
+ -->	

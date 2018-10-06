@@ -17,7 +17,9 @@ export class AbmPlantaComponent implements OnInit {
   constructor(private service: PlantaService, private modalService: ModalService) { }
 
   ngOnInit() {
-      this.getPlantas();
+      //le pongo un delay para que en su pantalla sea lo ultimo que se llame y no bloquee la base
+      //evita demora para mostrar otros datos
+      setTimeout(()=>{ this.getPlantas() }, 500);
   }
     
   //carga de imagen de planta, esto convendria sacarlo a otro componente no es parte del plano  
@@ -92,7 +94,7 @@ export class AbmPlantaComponent implements OnInit {
   }
   onClickModif(planta: Planta) {
       this.esAlta = false;
-      this.plantaSeleccionada = planta;
+      this.plantaSeleccionada = Object.assign({}, planta);
       this.modalService.open("popup-planta");
   }
   onClickBaja(planta: Planta) {
