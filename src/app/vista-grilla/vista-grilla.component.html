@@ -2,69 +2,96 @@
 <hr>
 <table class="tabla">
   <thead>
-    <tr>
-      <th >
+    <tr >
+      <th style="width:1px;">
         Nombre corto
+      </th>
+      <th style="width:1px;">
+        Temperatura
+      </th>
+      <th style="width:1px;">
+        Relé E1
+      </th >
+      <th style="width:1px;">
+        Relé E2
+      </th>
+      <th style="width: 130px;">
+        Relé <br>S1
+      </th>
+      <th style="width: 130px;">
+        Relé <br>S2
       </th>
       <th >
         Nombre largo
       </th>
       <th >
-        Temperatura
-      </th>
-      <th >
         Estado
-      </th>
-      <th >
-        Relé E1
-      </th>
-      <th >
-        Relé E2
-      </th>
-      <th >
-        Relé S1
-      </th>
-      <th >
-        Relé S2
       </th>
     </tr>
   </thead>
   <tbody>  
-    <tr *ngFor = "let estado of estadoActual">
-      <td >
-        {{estado.nombreCorto}}
-      </td>
-      <td >
-        {{estado.nombreLargo}}
-      </td>
-      <td >
-        {{estado.valor}}
-      </td>
-      <td >
-        ok
-      </td>
-      <td >
-        {{estado.estadoR1E ? 'On' : 'Off'}}
-      </td>
-      <td >
-        {{estado.estadoR2E ? 'On' : 'Off'}}
-      </td>
-      <td *ngIf = "estado.estadoR1S; then thenBlock; else elseBlock">
-      </td>
-      <td *ngIf = "estado.estadoR2S; then thenBlock; else elseBlock">        	
-      </td>
-      
-      <ng-template #thenBlock>
-      	<td>
-        	<img class="on" src="assets/images/switchOn.png" height="30px">
-        </td>
-      </ng-template>
-      <ng-template #elseBlock>
-      	<td>
-        	<img class="off" src="assets/images/switchOff.png" height="30px">
-        </td>
-      </ng-template>
-      
-    </tr>
+    <ng-container *ngFor = "let estado of estadoActual">
+	    <tr *ngIf = "estado.valor" style="height:50px" >
+	      <td >
+	        {{estado.nombreCorto}}
+	      </td>
+	      <td >
+	        {{estado.valor.toFixed(1)}}&nbsp;ºC
+	      </td>
+	      <td >
+	        {{estado.estadoR1E ? 'ON' : 'OFF'}}
+	      </td>
+	      <td >
+	        {{estado.estadoR2E ? 'ON' : 'OFF'}}
+	      </td>
+	      <td *ngIf = "mapReles.get(estado.idPuntoSensado) && mapReles.get(estado.idPuntoSensado)[0]; then thenBlock1; else elseBlockA">          
+	      </td>
+	      <td *ngIf = "mapReles.get(estado.idPuntoSensado) && mapReles.get(estado.idPuntoSensado)[1]; then thenBlock2; else elseBlockB">        	
+	      </td>
+	      <td >
+	        {{estado.nombreLargo}}
+	      </td>
+	      <td >
+	        OK
+	      </td>
+	      
+	      <ng-template #thenBlock1>
+	      	<td *ngIf = "estado.estadoR2S; else elseBlock1" style="text-align:center;">
+	        	<img class="on" src="assets/images/switchOn.png" height="30px"
+	        	 (click)="desactivarRele(estado.idPuntoSensado, 0)">
+	        </td>
+		      <ng-template #elseBlock1>
+		      	<td style="text-align:center;">
+		        	<img class="off" src="assets/images/switchOff.png" height="30px"
+		        	(click)="activarRele(estado.idPuntoSensado, 0)">
+		        </td>
+		      </ng-template>
+	      </ng-template>
+	      <ng-template #thenBlock2>
+	        <td *ngIf = "estado.estadoR2S; else elseBlock2" style="text-align:center;">
+	          <img class="on" src="assets/images/switchOn.png" height="30px"
+	           (click)="desactivarRele(estado.idPuntoSensado, 1)">
+	        </td>
+	        <ng-template #elseBlock2>
+	          <td style="text-align:center;">
+	            <img class="off" src="assets/images/switchOff.png" height="30px"
+	            (click)="activarRele(estado.idPuntoSensado, 1)">
+	          </td>
+	        </ng-template>
+	      </ng-template>
+	      
+	      <ng-template #elseBlockA>
+	        <td style="text-align:center;">
+	          {{estado.estadoR1S ? 'ON' : 'OFF'}}
+	        </td>
+	      </ng-template>
+	      <ng-template #elseBlockB>
+	        <td style="text-align:center;">
+	          {{estado.estadoR2S ? 'ON' : 'OFF'}}
+	        </td>
+	      </ng-template>
+	      
+	    </tr>
+    </ng-container>
   </tbody>
 </table>

@@ -11,7 +11,9 @@ const httpOptions = {
 };
 
 export abstract class AbstractRestService<T> {
+//  protected apiUrl = "https://"+ window.location.host +"/flamenco-server/test/";  
   protected apiUrl = "http://localhost:8080/flamenco-server/test/";  
+  
         
   constructor(protected http: HttpClient, protected actionUrl:string, 
         protected sharedService: SharedService){

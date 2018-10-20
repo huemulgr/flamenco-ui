@@ -19,6 +19,7 @@ import { PlanoComponent } from './plano/plano.component';
 import { PlanoModifComponent } from './plano-modif/plano-modif.component';
 import { MasComponent } from './mas/mas.component';
 
+import { ActivacionManualService } from './services/activacion-manual.service';
 import { AlarmaService } from './services/alarma.service';
 import { ComportamientoUmbralService } from './services/comportamiento-umbral.service';
 import { ComportamientoHoraService } from './services/comportamiento-hora.service';
@@ -89,6 +90,7 @@ const appRoutes: Routes = [
 
   providers: [
     ModalService, 
+    ActivacionManualService,  
     AlarmaService, 
     ComportamientoHoraService,
     ComportamientoUmbralService, 
