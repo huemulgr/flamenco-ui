@@ -1,10 +1,13 @@
-<div [style.left.px]="estado.coordenadaX" [style.top.px]="estado.coordenadaY" [style.visibility]="visibilidad()">
-	<table>
+<div [style.left.px]="estado.coordenadaX" 
+    [style.top.px]="estado.coordenadaY" 
+    [style.visibility]="visibilidad()"
+    *ngIf="estado.valor">
+	<table >
 	  <tr class="fila1">
 	    <td>{{estado.nombreCorto}}</td>	     
 	  </tr>
 	  <tr class="fila2">
-	  	<td>{{estado.valor}}&nbsp;ºC</td> 
+	  	<td>{{estado.valor ? estado.valor.toFixed(1) : '-'}}&nbsp;ºC</td> 
 	  </tr>
 	</table>
 </div>

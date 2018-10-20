@@ -25,7 +25,7 @@
 	   *ngIf="puntoDeSensadoSeleccionado && fechaInicio && fechaFin">
 </form>
 
-<div id="divCurva" style="display: block; width:90vw; height:530px; overflow-x: auto; overflow-y: hidden"
+<div id="divCurva" style="display: block; width:80vw; height:530px; overflow-x: auto; overflow-y: hidden"
     [style.visibility]="mostrarCurva">
   <p *ngIf="lecturas && lecturas.length < 1" 
       style="text-align: center; font-size:1.5em;">No se encontraron mediciones</p>

@@ -44,6 +44,7 @@ export class VistaEstadisticasComponent implements OnInit {
           (data) => { 
               this.lecturas = data;
               this.segregarDatosLecturas();
+              debugger;
           }
       );    
   }    
