@@ -6,6 +6,7 @@ import { ComportamientoHora } from "src/app/model/comportamiento-hora.model";
 import { ComportamientoUmbral } from "src/app/model/comportamiento-umbral.model";
 import { Sensor } from "src/app/model/sensor.model";
 
+//TODO: casi el 100% de esta logica habria que migrarla al server la hice aca porque soy un idiota contento
 @Component({
   selector: 'app-abm-comportamientos',
   templateUrl: './abm-comportamientos.component.html',
@@ -66,6 +67,7 @@ export class AbmComportamientosComponent implements OnInit {
             //los arrays se tienen que clonar
             this.tipoComportamiento = Object.assign({}, tipoCompActivo);
             this.tipoComportamientoActivo = Object.assign({}, tipoCompActivo);
+        debugger;
         }
       );      
     //lo mismo para los comportamientos tipo umbral  
@@ -93,6 +95,7 @@ export class AbmComportamientosComponent implements OnInit {
             this.seleccionarRele(this.numeroRele);
             this.tipoComportamiento = Object.assign({}, tipoCompActivo);
             this.tipoComportamientoActivo = Object.assign({}, tipoCompActivo);
+        debugger;
         }
       );  
   }
@@ -160,7 +163,6 @@ export class AbmComportamientosComponent implements OnInit {
           (data) => { 
             //si se completo el desactivado entonces intenta activar el nuevo
             this.persistirComportamiento(this.tipoComportamiento[this.numeroRele-1]);
-            this.getComportamientos();     
           }
           //si esta activacion falla, 
           //quedarian ambos desactivados y cae por default a manual
@@ -175,20 +177,36 @@ export class AbmComportamientosComponent implements OnInit {
   persistirComportamiento(codigoTipo: number) {
     if(codigoTipo == this.UMBRAL) {
       this.cUmbralSeleccionado.habilitado=true;  
-      if(this.comprobarEsAlta()) {   
-        this.createComportamientoUmbral();    
-      } else {
-        this.cUmbralSeleccionado.idSensor = this.sensor.id;
-        this.updateComportamientoUmbral(this.cUmbralSeleccionado);
-      }      
+      this.cUmbralSeleccionado.idSensor = this.sensor.id;
+              
+      //se envia el mensaje de configuracion, si hubo exito se continua
+      this.cUmbralService.configurarMas(this.cUmbralSeleccionado).subscribe(  
+        data => {
+          if(this.comprobarEsAlta()) {   
+            this.createComportamientoUmbral();    
+          } else {
+            this.updateComportamientoUmbral(this.cUmbralSeleccionado);
+          }
+          
+          this.getComportamientos();            
+        }
+      ); 
     } else if(codigoTipo == this.HORA) {
       this.cHoraSeleccionado.habilitado=true;  
-      if(this.comprobarEsAlta()) {   
-        this.createComportamientoHora();    
-      } else {
-        this.cHoraSeleccionado.idSensor = this.sensor.id;
-        this.updateComportamientoHora(this.cHoraSeleccionado);
-      }     
+      this.cHoraSeleccionado.idSensor = this.sensor.id;
+      
+      //se envia el mensaje de configuracion, si hubo exito se continua
+      this.cHoraService.configurarMas(this.cHoraSeleccionado).subscribe(  
+        data => {  
+          if(this.comprobarEsAlta()) {   
+            this.createComportamientoHora();    
+          } else {
+            this.updateComportamientoHora(this.cHoraSeleccionado);
+          }   
+          this.getComportamientos();       
+        }
+        
+      );  
     }
     //si es manual, equivale a no tener nada habilitado  
   }

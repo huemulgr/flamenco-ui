@@ -98,6 +98,26 @@
 	    <input name="periodo" type="time" step="1" required
 	        [(ngModel)]="cHoraSeleccionado.periodo">
 	  </label>
+	  
+	  <label><span>Habilitar activación por relé de entrada: </span>
+      <input name="re-habilitado2" type="checkbox"
+          [(ngModel)]="cHoraSeleccionado.habilitarContEntrada">
+    </label>
+    <fieldset [disabled]="!cHoraSeleccionado.habilitarContEntrada">
+      <label><span>Relé de entrada: </span>        
+        <label class="radio1"><input name="re2" type="radio" [value]="false"
+            [(ngModel)]="cHoraSeleccionado.contactorEntrada">Número 1</label>
+        <label class="radio1"><input name="re2" type="radio" [value]="true"
+            [(ngModel)]="cHoraSeleccionado.contactorEntrada">Número 2</label>
+      </label>  
+        
+      <label><span>Activación por relé entrada y umbral: </span>
+        <label class="radio1"><input name="and2" type="radio" [value]="false" checked
+            [(ngModel)]="cHoraSeleccionado.condicionY">Cualquiera de los dos</label>
+        <label class="radio1"><input name="and2" type="radio" [value]="true"
+            [(ngModel)]="cHoraSeleccionado.condicionY">Ambos a la vez</label>
+      </label>  
+    </fieldset>
   </fieldset>
   <br/><br/>
   <input class="boton1" type="submit" value="Confirmar cambio">

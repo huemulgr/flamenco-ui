@@ -1,12 +1,12 @@
 export class ComportamientoUmbral{
     id: number;
     habilitado: boolean;
-    umbralSup: number;
-    umbralInf: number;
     contactorEntrada: boolean;
     contactorSalida: boolean;
     condicionY: boolean;
     habilitarContEntrada: boolean;
+    umbralSup: number;
+    umbralInf: number;
     sensor: string;
     puntoSensado: string;
     idSensor: number;
