@@ -38,17 +38,17 @@ table.tabla{
 .tabla tr:hover, .tabla tr.selected {
   	background: #eee;
 }
+.tabla td, .tabla th { 
+	padding: 6px; 
+	border-bottom: 1px solid #ddd; 
+	text-align: left; 
+}
 .tabla th { 
 	background-image: linear-gradient(
     	#f9a, #d50
   	); 
 	color: #e8e8e8; 
-	font-weight: bold; 
-}
-.tabla td, .tabla th { 
-	padding: 6px; 
-	border-bottom: 1px solid #ddd; 
-	text-align: left; 
+	font-weight: bold;
 }
 
 /*formularios*/
