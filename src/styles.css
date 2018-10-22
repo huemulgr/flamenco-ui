@@ -43,10 +43,13 @@ table.tabla{
 	border-bottom: 1px solid #ddd; 
 	text-align: left; 
 }
-.tabla th { 
+.tabla th {
+	/*
 	background-image: linear-gradient(
     	#f9a, #d50
   	); 
+  	*/
+  	background-color: #f53600;
 	color: #e8e8e8; 
 	font-weight: bold;
 }

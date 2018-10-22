@@ -32,10 +32,10 @@ export class VistaGrillaComponent implements OnInit {
         private compHoraService: ComportamientoHoraService,
         private activacionManualService: ActivacionManualService ) { }
 
-    //esto hace polling cada 2.5 segundos recuperando el estado actual del servidor
+    //esto hace polling cada 1 segundos recuperando el estado actual del servidor
     //TODO: hacer configurable o con constante al menos    
     ngOnInit() {
-        this.interval = interval(2500)
+        this.interval = interval(1000)
         .pipe(
             startWith(0),
             switchMap(() => this.service.getEstadoActual())
