@@ -1,0 +1,22 @@
+<div id="divPantalla">
+  <img src="assets/images/flamencos.jpg" id="fondo"/>
+  <div class="menu-bar-titulo">  
+    <img height="80px" src="assets/images/flamenco_icono.png" style="margin-right: 20px;"/>
+    <img height="80px" src="assets/images/flamenco_titulo.png"/>
+  </div>
+  
+  <form class="form-style-2" #formLogin ngNativeValidate (ngSubmit)="login()">
+    <h3>Inicio de sesión</h3>
+    <fieldset>
+	    <label><span>
+	       <input name="user" type="text" 
+	           placeholder="Usuario" required [(ngModel)]="usuario.nombreUsuario"></span>
+	    </label>
+	    <label><span>
+	       <input name="pass" type="password" 
+	           placeholder="Contraseña" required [(ngModel)]="usuario.password"></span>
+	    </label>
+	    <input type="submit" class="boton1" value="Ingresar">
+    </fieldset>
+  </form>
+</div>

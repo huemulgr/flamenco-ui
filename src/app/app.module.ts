@@ -41,16 +41,21 @@ import { AbmPuntoSensadoComponent } from './abm-punto-sensado/abm-punto-sensado.
 import { IgnoreSanitizePipe } from './ignore-sanitize.pipe';
 import { AbmUsuariosComponent } from './abm-usuarios/abm-usuarios.component';
 import { PopupGeneralComponent } from './popup-general/popup-general.component';
+import { LoginComponent } from './login/login.component';
 
+import { AuthGuard } from './auth-guard/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-  { path: 'admin-usuarios', component: VistaAdminUsuariosComponent },
-  { path: 'config-general', component: VistaConfiguracionGralComponent },
-  { path: 'config-MAS', component: VistaConfiguracionMASComponent },
-  { path: 'config-MAS-alarmas', component: AbmAlarmaComponent },
-  { path: 'estadisticas', component: VistaEstadisticasComponent },
-  { path: 'estado-grilla', component: VistaGrillaComponent },
-  { path: 'estado-plano', component: VistaPlanoComponent }
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'admin-usuarios', component: VistaAdminUsuariosComponent, canActivate: [AuthGuard]  },
+  { path: 'config-general', component: VistaConfiguracionGralComponent, canActivate: [AuthGuard]  },
+  { path: 'config-MAS', component: VistaConfiguracionMASComponent, canActivate: [AuthGuard]  },
+  { path: 'config-MAS-alarmas', component: AbmAlarmaComponent, canActivate: [AuthGuard]  },
+  { path: 'estadisticas', component: VistaEstadisticasComponent, canActivate: [AuthGuard]  },
+  { path: 'estado-grilla', component: VistaGrillaComponent, canActivate: [AuthGuard]  },
+  { path: 'estado-plano', component: VistaPlanoComponent, canActivate: [AuthGuard]  },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -83,13 +88,14 @@ const appRoutes: Routes = [
     AbmComportamientosComponent,
     AbmPlantaComponent, 
     AbmPuntoSensadoComponent, 
-    IgnoreSanitizePipe, AbmUsuariosComponent, PopupGeneralComponent 
+    IgnoreSanitizePipe, AbmUsuariosComponent, PopupGeneralComponent, LoginComponent, HomeComponent 
   ],
 
   bootstrap: [AppComponent],
 
   providers: [
     ModalService, 
+    AuthGuard,
     ActivacionManualService,  
     AlarmaService, 
     ComportamientoHoraService,

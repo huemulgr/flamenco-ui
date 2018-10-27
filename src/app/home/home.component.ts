@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from "src/app/model/usuario.model";
 
-
 @Component({
-  selector: 'app-barra-menu',
-  templateUrl: './barra-menu.component.html',
-  styleUrls: ['./barra-menu.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class BarraMenuComponent implements OnInit {
+export class HomeComponent implements OnInit {
   usuarioLogeado: Usuario = JSON.parse(localStorage.getItem('currentUser'));
-  
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  
 }
