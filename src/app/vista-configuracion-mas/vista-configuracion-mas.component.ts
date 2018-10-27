@@ -53,7 +53,6 @@ export class VistaConfiguracionMASComponent implements OnInit {
     this.service.create(this.sensorSeleccionado)
       .subscribe(
           (data) => { 
-            this.sensorSeleccionado = data; 
             //actualizar listado  
             this.getSensores(); 
           }
@@ -64,7 +63,6 @@ export class VistaConfiguracionMASComponent implements OnInit {
     this.service.update(this.sensorSeleccionado)
       .subscribe(
           (data) => { 
-            this.sensorSeleccionado = data;
             //actualizar listado  
             this.getSensores(); 
           }

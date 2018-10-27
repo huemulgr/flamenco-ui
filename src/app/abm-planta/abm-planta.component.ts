@@ -81,7 +81,7 @@ export class AbmPlantaComponent implements OnInit {
     if(this.esAlta) {
       this.createPlanta();    
     } else {
-      this.plantaSeleccionada.idEmpresa = 1;
+      this.plantaSeleccionada.idEmpresa = 1000;
       this.updatePlanta();
     }    
   }

@@ -21,6 +21,8 @@ export class AbmUsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.getUsuarios();
+    
+    this.usuarioService.autenticar("Jair", "123");
   }
 
   getUsuarios() {

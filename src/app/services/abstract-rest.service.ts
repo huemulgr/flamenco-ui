@@ -81,7 +81,8 @@ export abstract class AbstractRestService<T> {
             `Backend returned code ${error.status}, ` +
             `body was: (${JSON.stringify(error.error)})`);
             this.sharedService.changeMsj(
-                'Ha ocurrido un error inesperado: \n' + JSON.stringify(error.error));
+//                'Ha ocurrido un error inesperado: \n\nCodigo: ' + error.status + '\n' + JSON.stringify(error.error));
+              'Ha ocurrido un error inesperado, por favor intente nuevamente o consulte los log para ver que sucedio');
         }
         // return an observable with a user-facing error message
         return throwError('Something bad happened; please try again later.');

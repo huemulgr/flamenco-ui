@@ -8,7 +8,8 @@
 	<select name="punto" class="form-style-2" [(ngModel)]="puntoDeSensadoSeleccionado" required>
 		<option disabled checked selected>--Seleccionar punto de sensado--</option>
 		<option *ngFor="let puntoDeSensado of puntosDeSensado" [ngValue]="puntoDeSensado">
-		  {{puntoDeSensado.nombreCorto}}
+		  {{puntoDeSensado.nombreCorto}}: 
+		    {{puntoDeSensado.planta}} - {{puntoDeSensado.descripcion}}
 		</option>
 	</select>
 	</label>

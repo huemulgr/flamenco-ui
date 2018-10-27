@@ -39,7 +39,6 @@ export class AbmPuntoSensadoComponent implements OnInit {
     this.service.create(this.puntoSensadoSeleccionado)
       .subscribe(
           (data) => { 
-            this.puntoSensadoSeleccionado = data; 
             //actualizar listado  
             this.getPuntosDeSensado(); 
           }
@@ -50,7 +49,6 @@ export class AbmPuntoSensadoComponent implements OnInit {
     this.service.update(this.puntoSensadoSeleccionado)
       .subscribe(
           (data) => { 
-            this.puntoSensadoSeleccionado = data;
             //actualizar listado  
             this.getPuntosDeSensado(); 
           }

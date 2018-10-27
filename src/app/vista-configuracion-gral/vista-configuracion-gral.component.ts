@@ -49,9 +49,9 @@ export class VistaConfiguracionGralComponent implements OnInit {
     this.getEmpresa();
   }
   
-  //hardcodeo id de empresa, suponiendo que vamos a tener uno solo con id = 1 por comodidad, cambiar en caso contrario  
+  //hardcodeo id de empresa, suponiendo que vamos a tener uno solo con id = 1000 por comodidad, cambiar en caso contrario  
   getEmpresa() {
-    this.service.getOne(1)
+    this.service.getOne(1000)
       .subscribe(
           (data: Empresa) => { 
               this.empresa = data;

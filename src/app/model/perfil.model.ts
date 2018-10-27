@@ -7,6 +7,6 @@ export class Perfil {
   idEmpresa: number;  
     
   constructor() {
-    this.idEmpresa = 1;  
+    this.idEmpresa = 1000;  
   }  
 }
