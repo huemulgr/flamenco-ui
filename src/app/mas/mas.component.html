@@ -1,6 +1,7 @@
 <div [style.left.px]="estado.coordenadaX" 
     [style.top.px]="estado.coordenadaY" 
     [style.visibility]="visibilidad()"
+    [class]="enAlarma ? 'alarma' : 'ok'"
     *ngIf="estado.valor">
 	<table >
 	  <tr class="fila1">

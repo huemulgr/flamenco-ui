@@ -7,7 +7,7 @@ export class Planta {
    idEmpresa: number;
    
    constructor() {
-     this.idEmpresa = 1;
+     this.idEmpresa = 1000;
      this.rutaImagen = "";
      this.habilitado = false;
    } 

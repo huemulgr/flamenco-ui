@@ -10,6 +10,7 @@ export class MasComponent implements OnInit {
     
   @Input() estado: EstadoMas;
   @Input() idPlantaSeleccionada: number;  
+  @Input() enAlarma: boolean;  
     
   constructor() { }
 

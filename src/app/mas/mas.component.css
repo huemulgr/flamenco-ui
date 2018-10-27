@@ -10,11 +10,16 @@ div{
   border-radius: 20px;
 //  border-bottom-left-radius: 1px;
  
-  background-image: linear-gradient(#aea, #2a2);
+  background-image: linear-gradient(#2a2, #aea);
   -webkit-box-shadow: 3px 3px 5px;
   -moz-box-shadow: 3px 3px 5px;
   box-shadow: 0px 0px 8px #0f0;   
 }
+.alarma {
+  background-image: linear-gradient(#ff0, #ffa) !important;
+  box-shadow: 0px 0px 8px #ffa;   
+}
+
 
 table {
   text-align: center;

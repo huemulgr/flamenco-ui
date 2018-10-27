@@ -47,7 +47,6 @@ export class AbmAlarmaComponent implements OnInit {
     this.service.update(this.alarmaSeleccionada)
       .subscribe(
           (data) => { 
-            this.alarmaSeleccionada = data;
             //actualizar listado  
             this.getAlarmas(); 
           }

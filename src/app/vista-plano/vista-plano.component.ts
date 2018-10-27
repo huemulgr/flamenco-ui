@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EstadoActualService } from "src/app/services/estado-actual.service";
 import { PlantaService } from "src/app/services/planta.service";
+import { PuntoDeSensadoService } from "src/app/services/punto-de-sensado.service";
 import { startWith, switchMap } from "rxjs/operators";
 import { interval } from "rxjs/internal/observable/interval";
 import { EstadoMas } from "src/app/model/estado-mas.model";
@@ -20,7 +21,8 @@ export class VistaPlanoComponent implements OnInit {
   plantas: Planta[] = new Array<Planta>();  
   plantaSeleccionada: Planta = new Planta();  
     
-  constructor(private service: EstadoActualService, private plantaService: PlantaService ) { }
+  constructor(private service: EstadoActualService, private plantaService: PlantaService,
+        private puntoSensadoService: PuntoDeSensadoService ) { }
 
   ngOnInit() {
     this.getPlantas();  
@@ -30,11 +32,14 @@ export class VistaPlanoComponent implements OnInit {
   observarEstadoActual() {
     //esto hace polling cada 5 segundos recuperando el estado actual del servidor
     //TODO: hacer configurable o con constante al menos    
-    this.interval = interval(2500)
+    this.interval = interval(2000)
       .pipe(
         startWith(0),
         switchMap(() => this.service.getEstadoActual())
-      ).subscribe(data => {this.estadoActual = data;})
+      ).subscribe(data => {
+          this.estadoActual = data;
+          this.puntoSensadoService.getAlarmasOn();
+      })
     ;
   } 
   getPlantas() {

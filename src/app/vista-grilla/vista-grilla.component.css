@@ -1,3 +1,7 @@
+.alarma {
+	background-color: #fe5 !important;
+}
+
 img.off {
 	-webkit-filter: drop-shadow(0px 0px 2px #0c0);
 	filter: drop-shadow(-2px 0px 0px #0c0);

@@ -31,7 +31,9 @@
   </thead>
   <tbody>  
     <ng-container *ngFor = "let estado of estadoActual">
-	    <tr *ngIf = "estado.valor" style="height:50px" >
+	    <tr *ngIf = "estado.valor" style="height:50px" 
+	       [class]="estado.idPuntoSensado && estaEnAlarma(estado.idPuntoSensado)==true ? 'alarma' : 'ok'"
+	    >
 	      <td >
 	        {{estado.nombreCorto}}
 	      </td>

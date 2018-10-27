@@ -25,7 +25,7 @@ export class VistaGrillaComponent implements OnInit {
     //estado actual, cada elemento corresponde a un MAS
     estadoActual: EstadoMas[];
     interval: Subscription;
-      
+    
     constructor(private service: EstadoActualService,
         private puntoSensadoService: PuntoDeSensadoService,
         private compUmbralService: ComportamientoUmbralService,
@@ -40,8 +40,12 @@ export class VistaGrillaComponent implements OnInit {
             startWith(0),
             switchMap(() => this.service.getEstadoActual())
         )
-        .subscribe(data => {this.estadoActual = data;});
-            
+        .subscribe(data => {
+            this.estadoActual = data;
+            this.puntoSensadoService.getAlarmasOn();
+        });
+        
+        
         //el cancer binario a continuacion obtiene para cada punto de sensado el tipo de activacion de los reles
         //en un map donde el key es el id del punto y el value es un array de 2 booleanos indicando true para manual
         //y false para no manual. Porque me interesa? porque solo pongo panel de control para los reles configurados en manual
@@ -113,6 +117,10 @@ export class VistaGrillaComponent implements OnInit {
                 //mostrar msj Ok    
             }
         );
+    }
+    
+    estaEnAlarma(idPuntoSensado: number) {
+        return this.puntoSensadoService.estaEnAlarma(idPuntoSensado);
     }
 
     ngOnDestroy() {

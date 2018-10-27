@@ -5,6 +5,7 @@
   <app-mas *ngFor="let estado of estadoActual"
   	[estado] = "estado"
   	[idPlantaSeleccionada] = "planta.id"
+  	[enAlarma] = "estado.idPuntoSensado && estaEnAlarma(estado.idPuntoSensado)==true"
   >
   </app-mas>
 </div>

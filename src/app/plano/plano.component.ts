@@ -4,6 +4,7 @@ import { interval } from "rxjs/internal/observable/interval";
 import { EstadoMas } from "src/app/model/estado-mas.model";
 import { Planta } from "src/app/model/planta.model";
 import { Subscription } from 'rxjs';
+import { PuntoDeSensadoService } from "src/app/services/punto-de-sensado.service";
 
 @Component({
   selector: 'app-plano',
@@ -14,6 +15,8 @@ export class PlanoComponent implements OnInit {
 
   @Input() planta: Planta;
   @Input() estadoActual: EstadoMas[];  
+
+  constructor(private puntoSensadoService: PuntoDeSensadoService ) { }
     
   //coordenadas de un click dentro del plano  
   clientX: number;
@@ -27,8 +30,6 @@ export class PlanoComponent implements OnInit {
     
   //esta asociado a class del contenedor del plano, puede cambiar entre normal y edicion o alguno mas si surge  
   estiloPlano: string = "normal";
-    
-  constructor() { }
 
   ngOnInit() {
   }
@@ -42,4 +43,7 @@ export class PlanoComponent implements OnInit {
     console.log(event);
   }
 
+  estaEnAlarma(idPuntoSensado: number) {
+     return this.puntoSensadoService.estaEnAlarma(idPuntoSensado);
+  }    
 }
