@@ -18,7 +18,7 @@ const httpOptions = {
     
 export class UsuarioService extends AbstractRestService<Usuario> {  
     
-    constructor(http: HttpClient, sharedService: SharedService) {
+    constructor(http: HttpClient, protected sharedService: SharedService) {
         super(http, "usuario/", sharedService);
     }
     
