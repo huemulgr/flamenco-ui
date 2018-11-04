@@ -20,6 +20,8 @@ export class ComportamientoHora{
         this.contactorSalida = false;
         this.condicionY = false;
         this.habilitarContEntrada = false;
+        
+        this.periodo = "00:30:00";
     }
 }
 

@@ -2,7 +2,8 @@
 html, body {
   margin: 0px;
   padding: 0px;
-  min-height: 100%;
+  /*adaptar al alto de la barra menu por alguna razon se suman*/
+  min-height: 87vh;
   position: relative;
   font-family: helvetica;  
 }

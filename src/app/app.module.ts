@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule} from "@angular/common/http";
+import {Location, LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { BarraMenuComponent } from './barra-menu/barra-menu.component';
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
   { path: 'estado-plano', component: VistaPlanoComponent, canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent }
 ];
+RouterModule.forRoot(appRoutes, {useHash: true})
 
 @NgModule({
   imports:      [
@@ -94,6 +96,7 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent],
 
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     ModalService, 
     AuthGuard,
     ActivacionManualService,  

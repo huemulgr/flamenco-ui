@@ -39,7 +39,8 @@ export class LoginComponent implements OnInit {
                 aux = data;
                 localStorage.setItem('currentUser', JSON.stringify(data));
 //                this.router.navigate([this.returnUrl]);
-                window.location.replace(this.returnUrl);
+//                window.location.replace(window.location.pathname + "#" + this.returnUrl);
+                  window.location.replace(window.location.pathname);
               }
             );
                 
