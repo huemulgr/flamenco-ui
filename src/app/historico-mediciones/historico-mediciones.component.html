@@ -1,0 +1,45 @@
+<h2>Historico de mediciones</h2>
+<hr>
+
+<form class="form-style-2" (ngSubmit)="obtenerHistorico()" style="display:inline-block">
+  <label><span>Fecha de inicio: </span>
+    <input name="fechaIni" type="date" [(ngModel)]="fechaInicio" required>
+  </label>
+  <label><span>Fecha de fin: </span>
+    <input name="fechaFin" type="date" [(ngModel)]="fechaFin" required>
+  </label>
+  
+  <input type="submit" value="Mostrar histórico" *ngIf="fechaInicio && fechaFin">
+</form>
+
+<br><br>
+<hr *ngIf="mostrar">
+<div style="margin-left: 45%;" *ngIf="mostrar">
+  <button (click)='diaAnteriorHistorico()'>
+    &lt;&lt;
+  </button>
+  <button (click)='diaSiguienteHistorico()'>
+    &gt;&gt;
+  </button>
+</div>
+
+<br>
+
+<table class="tabla" *ngIf="mostrar">
+  <thead>
+    <tr>
+	    <th *ngFor="let columna of columnas">
+	      {{columna}}<br>
+	    </th>
+	  </tr>  
+  </thead>
+  <div style="height: 0px;">
+  </div>
+  <tbody>
+	  <tr *ngFor="let fila of filas">
+	    <td *ngFor="let item of fila">
+	      {{item}}
+	    </td>
+	  </tr>
+	</tbody>
+</table>

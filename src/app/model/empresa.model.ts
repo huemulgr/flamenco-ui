@@ -7,6 +7,7 @@ export class Empresa {
         periodo: number;
         columnasImpresion: number;
         passwordActual: string;
+        qr: string;
     
         constructor(){
             this.id = 1000;    

@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule} from "@angular/common/http";
-import {Location, LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppComponent } from './app.component';
 import { BarraMenuComponent } from './barra-menu/barra-menu.component';
@@ -46,6 +47,8 @@ import { LoginComponent } from './login/login.component';
 
 import { AuthGuard } from './auth-guard/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { VincularQrComponent } from './vincular-qr/vincular-qr.component';
+import { HistoricoMedicionesComponent } from './historico-mediciones/historico-mediciones.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -56,7 +59,9 @@ const appRoutes: Routes = [
   { path: 'estadisticas', component: VistaEstadisticasComponent, canActivate: [AuthGuard]  },
   { path: 'estado-grilla', component: VistaGrillaComponent, canActivate: [AuthGuard]  },
   { path: 'estado-plano', component: VistaPlanoComponent, canActivate: [AuthGuard]  },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'historico', component: HistoricoMedicionesComponent, canActivate: [AuthGuard]  },
+  { path: 'qr', component: VincularQrComponent, canActivate: [AuthGuard] }
 ];
 RouterModule.forRoot(appRoutes, {useHash: true})
 
@@ -69,7 +74,8 @@ RouterModule.forRoot(appRoutes, {useHash: true})
     BrowserModule, 
     ChartsModule,
     FormsModule, 
-    HttpClientModule 
+    HttpClientModule,
+    QRCodeModule 
   ],
 
   declarations: [ 
@@ -90,7 +96,12 @@ RouterModule.forRoot(appRoutes, {useHash: true})
     AbmComportamientosComponent,
     AbmPlantaComponent, 
     AbmPuntoSensadoComponent, 
-    IgnoreSanitizePipe, AbmUsuariosComponent, PopupGeneralComponent, LoginComponent, HomeComponent 
+    IgnoreSanitizePipe, 
+    AbmUsuariosComponent, 
+    PopupGeneralComponent, 
+    LoginComponent, 
+    HomeComponent, 
+    VincularQrComponent, HistoricoMedicionesComponent 
   ],
 
   bootstrap: [AppComponent],

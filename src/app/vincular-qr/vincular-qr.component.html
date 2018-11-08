@@ -1,0 +1,9 @@
+<h3>
+  Puede permitir el acceso a la aplicación móvil de flamenco mediante el escaneo
+  del siguiente código QR:
+</h3>
+
+<div style="margin-left: 35%; margin-top: 100px">
+	<!-- see: https://www.npmjs.com/package/angularx-qrcode -->
+	<qrcode *ngIf="empresa.qr" [qrdata]="empresa.qr" [size]="256" [level]="'M'" ></qrcode>
+</div>

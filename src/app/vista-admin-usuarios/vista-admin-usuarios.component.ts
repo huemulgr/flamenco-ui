@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { Perfil } from 'src/app/model/perfil.model';
+import { Sensor } from 'src/app/model/sensor.model';
+import { SensorService } from 'src/app/services/sensor.service';
+import { EmpresaService, RespuestaValidarClave } from 'src/app/services/empresa.service';
+import { Empresa } from 'src/app/model/empresa.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-vista-admin-usuarios',
@@ -11,11 +16,18 @@ import { Perfil } from 'src/app/model/perfil.model';
 export class VistaAdminUsuariosComponent implements OnInit {
   perfiles: Perfil[];
   perfilSeleccionado: Perfil = new Perfil();  
-    
-  constructor(private perfilService: PerfilService, private modalService: ModalService) { }
+  sensores: Sensor[] = [];  
+  passConfig: string = "";    
+
+  constructor(private perfilService: PerfilService, private modalService: ModalService, 
+    private sensorService: SensorService,
+    private service: EmpresaService,
+    private location: Location
+    ) { }
 
   ngOnInit() {
       this.getPerfiles();
+      setTimeout(()=>{ this.openModal("popup-clave") }, 100);
   }
     
   getPerfiles() {
@@ -72,7 +84,19 @@ export class VistaAdminUsuariosComponent implements OnInit {
 //        (data) => { } 
 //    );    
 //  }  
-       
+  msjError = "";  
+  validarClave() {
+    this.service.validarClave(this.passConfig).subscribe(
+        (data: RespuestaValidarClave) => {
+            if(data.ok) {
+                this.closeModal("popup-clave");    
+            } else {
+                this.msjError = "Clave incorrecta";
+            }
+        }
+    );
+  } 
+    
 
   onClickAltaModif(perfil?: Perfil) {
     if(perfil) {
@@ -95,8 +119,58 @@ export class VistaAdminUsuariosComponent implements OnInit {
     }
   }  
     
+  //TODO: refactor  
+  getSensores() {
+    this.sensorService.getAll().subscribe(
+        (data) => {
+            this.sensores = data;
+        } 
+    );    
+  }    
+  asignar=true;    
+  sensorSeleccionado: Sensor = new Sensor();    
+  onClickAgregarSensor(perfil) {
+    this.getSensores();
+    this.asignar = true;
+    this.perfilSeleccionado = Object.assign({}, perfil);       
+    this.modalService.open("popup-asignacion-sensor");      
+  }
+  onClickQuitarSensor(perfil) {
+    this.getSensores();
+    this.asignar = false;
+    this.perfilSeleccionado = Object.assign({}, perfil);       
+    this.modalService.open("popup-asignacion-sensor");      
+  }      
+  onSubmitSensor() {
+    if(this.asignar) {
+      this.perfilService.asignarSensor(this.perfilSeleccionado.id, this.sensorSeleccionado.id)
+        .subscribe((data) => {              
+            this.getPerfiles();
+        } );      
+    } else {
+      this.perfilService.quitarSensor(this.perfilSeleccionado.id, this.sensorSeleccionado.id)
+        .subscribe((data) => {
+            this.getPerfiles();
+        } );  
+    }      
+    this.modalService.close("popup-asignacion-sensor");   
+  }          
+  compareFn(c1: any, c2:any): boolean {     
+    return c1 && c2 ? c1.id === c2.id : c1 === c2; 
+  }   
+    
+    
+  volver() {
+    this.location.back();          
+  }  
   onCancelar(id: string) {
     this.modalService.close(id);  
+  }  
+  openModal(id: string) {
+      this.modalService.open(id);
+  }
+  closeModal(id: string) {
+      this.modalService.close(id);
   }  
     
 }

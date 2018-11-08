@@ -2,6 +2,7 @@
 	background-color: #fe5 !important;
 }
 
+/*
 img.off {
 	-webkit-filter: drop-shadow(0px 0px 2px #0c0);
 	filter: drop-shadow(-2px 0px 0px #0c0);
@@ -14,14 +15,21 @@ img.on {
   vertical-align:middle;
   transform: translateY(-2px);
 }
+*/
 
-img.off:hover {
-	filter:none;
+img.off {
+	cursor: pointer;
+	filter: drop-shadow(0px 0px 2px #f50);
 }
 	
-img.on:hover {
-	filter:none;
+img.on {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 2px #f50);
 }
 img {
 	padding-left: 0;
 }
+.status img {
+  filter: drop-shadow(0px 0px 1px #000);
+}
+

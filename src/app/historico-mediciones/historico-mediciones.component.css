@@ -1,0 +1,27 @@
+table {
+	margin-left: 15px;
+}
+
+thead, tbody {
+	display: inline-block;
+}
+
+thead {
+	height: 30px;
+}
+
+tbody {
+	height: 70vh;       /* Just for the demo          */
+  overflow-y: auto;    /* Trigger vertical scroll    */
+  overflow-x: hidden;
+}
+
+th, td {
+	width: 95px;
+	padding: 3px 5px;
+	margin: 0px;
+}
+
+th {
+	width: 92px;
+}

@@ -16,6 +16,7 @@ import { ModalService } from 'src/app/services/modal.service';
 
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;
+    @Input() block: boolean;
     private element: any;
 
     constructor(private modalService: ModalService, private el: ElementRef) {
@@ -37,12 +38,14 @@ export class ModalComponent implements OnInit, OnDestroy {
         document.body.appendChild(this.element);
 
         // close modal on background click
-        this.element.addEventListener('click', function (e: any) {
-            if (e.target.className === 'app-modal-background') {
-                modal.close();
-            }
-        });
-
+        if(!this.block) {
+            this.element.addEventListener('click', function (e: any) {
+                if (e.target.className === 'app-modal-background') {
+                    modal.close();
+                }
+            });
+        }
+        
         // add self (this modal instance) to the modal service so it's accessible from controllers
         this.modalService.add(this);
     }

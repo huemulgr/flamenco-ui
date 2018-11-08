@@ -21,15 +21,15 @@
       </th>
       <th>
         Planta
-      </th>      
-      <th width="80px">
-        Orden impresión
       </th>
       <th width="60px">
         Orden grilla
       </th>
       <th>
         Página
+      </th>      
+      <th width="80px">
+        Orden impresión
       </th>
       <th>
         Sensor
@@ -57,13 +57,13 @@
         {{punto.planta}}
       </td>
       <td >
-        {{punto.ordenImpresion}}
-      </td>
-      <td >
         {{punto.ordenGrilla}}
       </td>
       <td >
         {{punto.pagina}}
+      </td>
+      <td >
+        {{punto.ordenImpresion}}
       </td>
       <td >
         {{punto.sensorAsociado}}
@@ -110,11 +110,6 @@
 	      [(ngModel)]="puntoSensadoSeleccionado.descripcion" required></textarea>
 	    </label>
 	    
-	    <label><span>Orden impresión: </span>
-	      <input name="ordenImpresion" type="number" min="1"
-	      [(ngModel)]="puntoSensadoSeleccionado.ordenImpresion" required >
-	    </label>
-	    
 	    <label><span>Orden grilla: </span>
 	      <input name="ordenGrilla" type="number" min="1"
 	      [(ngModel)]="puntoSensadoSeleccionado.ordenGrilla" required >
@@ -124,6 +119,11 @@
 	      <input name="paginaReporte" type="number" min="1"
 	      [(ngModel)]="puntoSensadoSeleccionado.pagina" required >
 	    </label>
+	    
+      <label><span>Orden impresión: </span>
+        <input name="ordenImpresion" type="number" min="1"
+        [(ngModel)]="puntoSensadoSeleccionado.ordenImpresion" required >
+      </label>
 	    
 	    <label><span>Planta: </span>
 	      <select name="planta" [(ngModel)]="plantaSeleccionada" [compareWith]="compareFn" required>

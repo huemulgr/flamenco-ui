@@ -1,7 +1,7 @@
 <!--header-->
 <h2>
   Configuracion general
-  <button class="boton1"  (click)="this.ocultarModal = false" >
+  <button class="boton1"  (click)="this.configGeneralDisabled = false" >
     <img src="assets/images/edit_icon.png" height="30px"/>
   </button></h2>
 <hr>
@@ -52,36 +52,45 @@
 
   <label><span>Periodo de impresión [Minutos]: </span>
     <input name="periodoImpresion" type="number" 
-    [(ngModel)]="empresa.periodo" required>
+    [(ngModel)]="empresa.periodo" required
+    (ngModelChange)="valuechange($event)"
+    >
   </label>
   
-  <label><span>Columnas impresion: </span>
+<!-- se maneja en cliente de impresion --> 
+  <label style="display:none"><span>Columnas impresion: </span>
     <input name="columnas" type="number" 
     [(ngModel)]="empresa.columnasImpresion" required>
   </label>
   
+  <input type="button" class="boton1" (click)="clickComprobarEspacio()" *ngIf="empresa.periodo && !configGeneralDisabled"
+    value="Comprobar espacio libre" style="margin-left: 0"><br><br>
+  <label style="font-weight: bold" *ngIf="msjEspacioLibre && !configGeneralDisabled">{{msjEspacioLibre}}</label>
+  
+  <br>
   <input type="submit" value="Guardar cambios">
   </fieldset>
-<!-- <pre>{{formGeneral.value | json}}</pre> -->
 </form>
-
 
 <!-- abm de plantas en la misma pantalla de config. general -->
 <hr>
 <app-abm-planta></app-abm-planta>
 
-<!--ventana modal password de configuracion: reemplazar x app-modal que es mas versatil-->
-<div class="grisado" [hidden]="ocultarModal" (click) = "this.ocultarModal = true"></div>
-<div class="form-style-2 modalPassword" [hidden]="ocultarModal">
-  <form #formModal="ngForm" (ngSubmit)="onSubmitModalPassword()">
-    <label>Ingrese contraseña de configuración</label>
-    <input type="password"><br>
-    <label></label><br>
-    <input type="submit" value="Aceptar">
-    <input type="button" value="Cancelar" (click)="this.ocultarModal = true" > 
-  </form>
-</div>
-
 <br><br>
 <hr>
 <app-abm-punto-sensado></app-abm-punto-sensado>
+
+<!--ventana modal password de configuracion: reemplazar x app-modal que es mas versatil-->
+<app-modal id="popup-clave" block="true">
+  <div class="form-style-2">
+    <form #formModal="ngForm" (ngSubmit)="validarClave()" ngNativeValidate>
+      <label>Ingrese contraseña de configuración</label>
+      <input name="pass1" type="password" [(ngModel)]="passConfig" required><br>
+      <label>{{msjError}}</label><br>
+      <input type="submit" value="Aceptar" (click)="validarClave()">
+      <input type="button" value="Cancelar" (click)="volver()"> 
+    </form>
+  </div>
+</app-modal>
+
+

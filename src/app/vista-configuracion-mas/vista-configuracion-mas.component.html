@@ -53,10 +53,10 @@
         {{sensor.descripcionUbicacion}}
       </td>
       <td >
-        {{sensor.minutosMuestreo}}
+        {{sensor.minutosMuestreo + ' Min.'}}
       </td>
       <td >
-        {{sensor.deltaMuestreo}}
+        {{sensor.deltaMuestreo + ' °C'}}
       </td>
       <td >
         {{sensor.mac}}
@@ -81,13 +81,18 @@
     </tr>
   </tbody>
 </table>
+
+<br><br><hr>
+<h3>Comprobar logs de comunicación con mesh:</h3>
+<a class="boton1" href="../../logs/flamenco.log" download>Comprobar logs</a>
+
 </div>
 
 <app-modal id="popup-sensor">
   
 	<form class="form-style-2" #formMas="ngForm" (ngSubmit)="onSubmitSensor()" ngNativeValidate>
 	  <div style="height:80vh; width:60vw; overflow-y: auto" >
-	  <h2>Configuración general</h2> 
+	  <h2>Configuracion MAS</h2> 
     <hr>
     <fieldset>
 	  <label><span>Habilitado: </span>

@@ -38,4 +38,16 @@ export class LecturaService extends AbstractRestService<Lectura>{
             catchError (super.handleError)
         );
     }
+    
+    getLecturasPivot(fecha: string): Observable<any[]> {
+        
+        var parametros = new HttpParams()
+            .append('fecha', fecha);    
+        
+        return this.http.get(this.apiUrl + "/pivot", {params: parametros} )
+        .pipe(
+            map((response:any[]) => response),
+            catchError (super.handleError)
+        );
+    }
 }

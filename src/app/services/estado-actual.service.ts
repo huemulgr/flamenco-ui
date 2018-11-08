@@ -21,8 +21,8 @@ const httpOptions = {
 //Servicio para comunicacion con servidor local a traves de rest. en otro momento podria 
 //convenir hacer mas granularidad teniendo 1 servicio por entidad        
 export class EstadoActualService {  
-//  protected estadoActualUrl = "https://"+ window.location.host +"/flamenco-server/test/estadoactual/";  
-    private estadoActualUrl = 'http://localhost:8080/flamenco-server/test/estadoactual/';
+    protected estadoActualUrl = "https://"+ window.location.host +"/flamenco-server/test/estadoactual/";  
+//    private estadoActualUrl = 'http://localhost:8080/flamenco-server/test/estadoactual/';
     
     constructor(private http: HttpClient) {
     }

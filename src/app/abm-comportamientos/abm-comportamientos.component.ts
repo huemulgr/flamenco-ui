@@ -6,7 +6,7 @@ import { ComportamientoHora } from "src/app/model/comportamiento-hora.model";
 import { ComportamientoUmbral } from "src/app/model/comportamiento-umbral.model";
 import { Sensor } from "src/app/model/sensor.model";
 
-//TODO: casi el 100% de esta logica habria que migrarla al server la hice aca porque soy un idiota contento
+//TODO: migrar logica al servidor
 @Component({
   selector: 'app-abm-comportamientos',
   templateUrl: './abm-comportamientos.component.html',

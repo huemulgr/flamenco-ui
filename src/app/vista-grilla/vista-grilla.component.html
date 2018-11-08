@@ -3,6 +3,9 @@
 <table class="tabla">
   <thead>
     <tr >
+      <th style="width: 60px;">
+        Estado
+      </th>
       <th style="width:1px;">
         Nombre corto
       </th>
@@ -15,46 +18,47 @@
       <th style="width:1px;">
         Relé E2
       </th>
-      <th style="width: 130px;">
+      <th style="width: 66px;">
         Relé <br>S1
       </th>
-      <th style="width: 130px;">
+      <th style="width: 66px;">
         Relé <br>S2
       </th>
       <th >
         Nombre largo
       </th>
-      <th >
-        Estado
-      </th>
     </tr>
   </thead>
   <tbody>  
     <ng-container *ngFor = "let estado of estadoActual">
-	    <tr *ngIf = "estado.valor" style="height:50px" 
-	       [class]="estado.idPuntoSensado && estaEnAlarma(estado.idPuntoSensado)==true ? 'alarma' : 'ok'"
-	    >
+	    <tr *ngIf = "estado" style="height:50px" >
+	    <!-- [class]="estado.idPuntoSensado && estaEnAlarma(estado.idPuntoSensado)==true ? 'alarma' : 'ok'" -->      
+        <td style="padding-left:20px" class="status">
+          <img *ngIf="!estado.valor" src="assets/images/status/DESC.png" height="30px">
+          <img *ngIf="estado.valor && estaEnAlarma(estado.idPuntoSensado)" src="assets/images/status/MALB.png" height="30px">
+          <img *ngIf="estado.valor && !estaEnAlarma(estado.idPuntoSensado)" src="assets/images/status/BIEN.png" height="30px">
+        </td>
 	      <td >
 	        {{estado.nombreCorto}}
 	      </td>
-	      <td >
+	      <td *ngIf = "estado.valor">
 	        {{estado.valor.toFixed(1)}}&nbsp;ºC
 	      </td>
+	      <td *ngIf = "!estado.valor">
+          ---
+        </td>
 	      <td >
 	        {{estado.estadoR1E ? 'ON' : 'OFF'}}
 	      </td>
 	      <td >
 	        {{estado.estadoR2E ? 'ON' : 'OFF'}}
 	      </td>
-	      <td *ngIf = "mapReles.get(estado.idPuntoSensado) && mapReles.get(estado.idPuntoSensado)[0]; then thenBlock1; else elseBlockA">          
+	      <td *ngIf = "estado.valor && mapReles.get(estado.idPuntoSensado) && mapReles.get(estado.idPuntoSensado)[0]; then thenBlock1; else elseBlockA">          
 	      </td>
-	      <td *ngIf = "mapReles.get(estado.idPuntoSensado) && mapReles.get(estado.idPuntoSensado)[1]; then thenBlock2; else elseBlockB">        	
+	      <td *ngIf = "estado.valor && mapReles.get(estado.idPuntoSensado) && mapReles.get(estado.idPuntoSensado)[1]; then thenBlock2; else elseBlockB">        	
 	      </td>
 	      <td >
 	        {{estado.nombreLargo}}
-	      </td>
-	      <td >
-	        OK
 	      </td>
 	      
 	      <ng-template #thenBlock1>

@@ -46,10 +46,9 @@ export class VistaGrillaComponent implements OnInit {
         });
         
         
-        //el cancer binario a continuacion obtiene para cada punto de sensado el tipo de activacion de los reles
+        //TODO: migrar a servidor. Se obtiene para cada punto de sensado el tipo de activacion de los reles
         //en un map donde el key es el id del punto y el value es un array de 2 booleanos indicando true para manual
-        //y false para no manual. Porque me interesa? porque solo pongo panel de control para los reles configurados en manual
-        //porque no lo hice mejor? no tenia tiempo, ademas, los gustos hay que darselos en vida        
+        //y false para no manual. Se emplea para mostrar o ocultar la activacion manual       
         var puntosDeSensado = new Array<PuntoDeSensado>();    
         var compsUmbral = new Array<ComportamientoUmbral>();  
         var compsHora = new Array<ComportamientoHora>();

@@ -35,7 +35,7 @@ export class PuntoDeSensadoService extends AbstractRestService<PuntoDeSensado> {
     estaEnAlarma(idPuntoSensado: number) {
         for(let alarma of this.alarmasOn) {
            if(idPuntoSensado && alarma == idPuntoSensado) {
-               debugger;
+//               debugger;
                return true;  
            }
         }

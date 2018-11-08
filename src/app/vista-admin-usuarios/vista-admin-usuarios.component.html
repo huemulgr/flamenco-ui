@@ -37,6 +37,12 @@
         <button class="boton2" (click)="onClickAltaModif(perfil)">
           <img src="assets/images/edit_icon.png" height="30px" style="vertical-align:middle">
         </button>
+        <button class="boton2" (click)="onClickAgregarSensor(perfil)">
+          <img src="assets/images/agregarSensor.png" height="40px" style="vertical-align:middle">
+        </button>
+        <button class="boton2" (click)="onClickQuitarSensor(perfil)">
+          <img src="assets/images/quitarSensor.png" height="40px" style="vertical-align:middle">
+        </button>
         <button class="boton2" (click)="onClickBaja(perfil)">
           <img src="assets/images/delete_icon.png" height="30px" style="vertical-align:middle">
         </button>
@@ -75,5 +81,43 @@
 
 <br>
 
+<app-modal id="popup-asignacion-sensor">
+  <form class="form-style-2" #formAsignacionSensor="ngForm" ngNativeValidate
+      (ngSubmit)="onSubmitSensor()">
+    <div style="max-height:80vh; width:600px; overflow-y:auto;">
+      <h2>{{asignar ? 'Asignar sensor' : 'Quitar sensor'}}</h2>
+      <hr>
+      <label><span>Sensor: </span>
+        <select name="sensor" [(ngModel)]="sensorSeleccionado" [compareWith]="compareFn" required>
+          <option [ngValue]="undefined" disabled>--Seleccionar perfil--</option>
+          <option  *ngFor="let sensor of sensores" [ngValue]="sensor">
+            {{sensor.mac + ' - ' +  sensor.id}}
+          </option>
+        </select>
+      </label>
+
+    </div>
+    
+    <hr>
+    <div style="text-align:right">
+      <input class="boton1" type="submit" value="Aceptar">
+      <button type="button" class="boton1" (click)="onCancelar('popup-asignacion-sensor')">Cancelar</button>
+    </div>  
+  </form>
+</app-modal>
+
+
 <app-abm-usuarios></app-abm-usuarios>
 
+
+<app-modal id="popup-clave" block="true">
+  <div class="form-style-2">
+    <form #formModal="ngForm" (ngSubmit)="validarClave()" ngNativeValidate>
+      <label>Ingrese contraseña de configuración</label>
+      <input name="pass1" type="password" [(ngModel)]="passConfig" required><br>
+      <label>{{msjError}}</label><br>
+      <input type="submit" value="Aceptar" (click)="validarClave()">
+      <input type="button" value="Cancelar" (click)="volver()"> 
+    </form>
+  </div>
+</app-modal>

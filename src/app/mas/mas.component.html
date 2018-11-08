@@ -1,14 +1,17 @@
 <div [style.left.px]="estado.coordenadaX" 
     [style.top.px]="estado.coordenadaY" 
     [style.visibility]="visibilidad()"
-    [class]="enAlarma ? 'alarma' : 'ok'"
-    *ngIf="estado.valor">
+    [class]="estado.valor ? (enAlarma ? 'alarma' : 'ok') : 'desc'"
+    *ngIf="estado">
 	<table >
 	  <tr class="fila1">
 	    <td>{{estado.nombreCorto}}</td>	     
 	  </tr>
-	  <tr class="fila2">
+	  <tr class="fila2" *ngIf="estado.valor">
 	  	<td>{{estado.valor ? estado.valor.toFixed(1) : '-'}}&nbsp;ºC</td> 
 	  </tr>
+	  <tr class="fila2" *ngIf="!estado.valor">
+      <td>---</td> 
+    </tr>
 	</table>
 </div>

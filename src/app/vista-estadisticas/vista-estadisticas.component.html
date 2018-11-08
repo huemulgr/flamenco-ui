@@ -3,16 +3,16 @@
 
 <form class="form-style-2" (ngSubmit)="generarCurva()" style="display:inline-block">
 	<label>
-	  <span>Punto de sensado:  </span>
-	
+	  <span>Punto de sensado:  </span>	
 	<select name="punto" class="form-style-2" [(ngModel)]="puntoDeSensadoSeleccionado" required>
-		<option disabled checked selected>--Seleccionar punto de sensado--</option>
+		<option disabled selected>--Seleccionar punto de sensado--</option>
 		<option *ngFor="let puntoDeSensado of puntosDeSensado" [ngValue]="puntoDeSensado">
 		  {{puntoDeSensado.nombreCorto}}: 
 		    {{puntoDeSensado.planta}} - {{puntoDeSensado.descripcion}}
 		</option>
 	</select>
 	</label>
+	
 	<label><span>Fecha de inicio: </span>
 	  <input name="fechaIni" type="date" [(ngModel)]="fechaInicio" required>
 	</label>
@@ -20,11 +20,46 @@
 	<label><span>Fecha de fin: </span>
 	  <input name="fechaFin" type="date" [(ngModel)]="fechaFin" required>
 	</label>
-	<br><br>
+	<br>
 	
 	<input type="submit" value="Mostrar gráfica" 
 	   *ngIf="puntoDeSensadoSeleccionado && fechaInicio && fechaFin">
+	
+	<br><br>  
+	   
+<!-- mas puntos de sensado -->	   
+  <h3 *ngIf="mostrarCurva=='visible'">Comparar</h3>
+	<label *ngIf="mostrarCurva=='visible'">
+    <span>Punto de sensado:  </span>  
+	  <select name="punto2" class="form-style-2" [(ngModel)]="puntoDeSensadoSeleccionado2" required>
+	    <option disabled checked selected>--Seleccionar punto de sensado--</option>
+	    <option *ngFor="let puntoDeSensado of puntosDeSensado" [ngValue]="puntoDeSensado">
+	      {{puntoDeSensado.nombreCorto}}: 
+	        {{puntoDeSensado.planta}} - {{puntoDeSensado.descripcion}}
+	    </option>
+	  </select>    
+  </label>   
+	   
+  <button class="boton1" type="submit" (click)="agregarPunto()"
+      *ngIf="mostrarCurva=='visible' && puntoDeSensadoSeleccionado2">
+    Comparar
+  </button>	   
 </form>
+
+<hr *ngIf="mostrarCurva=='visible'"> 
+<div style="margin-left: 45%" *ngIf="mostrarCurva=='visible'">
+  <!-- ejemplo boton de scroll, cuando haya tiempo agregar con animacion para suavizar movimiento  -->
+	<button onClick=
+	  "document.getElementById('divCurva').scrollLeft -= 500; console.log(document.getElementById('divCurva'));"
+	>&lt;&lt;</button>
+	  
+	<button onClick=
+	  "document.getElementById('divCurva').scrollLeft += 500; console.log(document.getElementById('divCurva'));"
+	>&gt;&gt;</button>  
+	
+	<span style="color: #f50;">&nbsp;{{puntoDeSensadoSeleccionado.nombreCorto}}&nbsp;</span>
+	<span style="color: #444;" *ngIf="puntoDeSensadoSeleccionado2">{{puntoDeSensadoSeleccionado2.nombreCorto}}</span>
+</div>
 
 <div id="divCurva" style="display: block; width:80vw; height:530px; overflow-x: auto; overflow-y: hidden"
     [style.visibility]="mostrarCurva">
@@ -45,9 +80,3 @@
 	  </canvas>
   </div>
 </div>
-
-<!-- ejemplo boton de scroll, cuando haya tiempo agregar con animacion para suavizar movimiento  
-<button onClick=
-	"document.getElementById('divCurva').scrollLeft += 500; console.log(document.getElementById('divCurva'));"
-	>Scroll derecha</button>
- -->	

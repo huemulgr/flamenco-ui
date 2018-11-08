@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EmpresaService } from 'src/app/services/empresa.service';
+import { EmpresaService, RespuestaValidarClave } from 'src/app/services/empresa.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { Empresa } from 'src/app/model/empresa.model';
+import { Location } from '@angular/common';
 
 //modelo
 class ConfigGeneral {
@@ -18,6 +19,9 @@ class ConfigImpresion {
   public periodoImpresion: string = "";
 }
 
+class EspacioLibreMensaje {
+  public mensaje: string;        
+}  
 
 @Component({
   selector: 'app-vista-configuracion-gral',
@@ -29,9 +33,8 @@ class ConfigImpresion {
 export class VistaConfiguracionGralComponent implements OnInit {
 
   @ViewChild("formGeneral") formGeneral: any;
-  @ViewChild("formModal") formModal: any;
   cambiaPass: boolean;
-  passConfig: string;
+  passConfig: string = "";
   passActual: string;
   passNueva2: string;
   configGeneralDisabled;
@@ -40,13 +43,12 @@ export class VistaConfiguracionGralComponent implements OnInit {
   empresas: Empresa[];
   empresa: Empresa = new Empresa();
   
-  constructor(private service: EmpresaService, private modalService: ModalService) { }
+  constructor(private service: EmpresaService, 
+    private modalService: ModalService, private location: Location) { }
 
-  ngOnInit() {
-    this.ocultarModal = true;
-    this.configGeneralDisabled = true;
-    this.configImpresionDisabled = true;
+  ngOnInit() {      
     this.getEmpresa();
+    setTimeout(()=>{ this.openModal("popup-clave") }, 100);
   }
   
   //hardcodeo id de empresa, suponiendo que vamos a tener uno solo con id = 1000 por comodidad, cambiar en caso contrario  
@@ -55,7 +57,6 @@ export class VistaConfiguracionGralComponent implements OnInit {
       .subscribe(
           (data: Empresa) => { 
               this.empresa = data;
-              console.log(this.empresa);
           }
       );
   }
@@ -75,7 +76,34 @@ export class VistaConfiguracionGralComponent implements OnInit {
           }
       );
   }
-
+  msjError = "";  
+  validarClave() {
+    this.service.validarClave(this.passConfig).subscribe(
+        (data: RespuestaValidarClave) => {
+            if(data.ok) {
+                this.closeModal("popup-clave");    
+            } else {
+                this.msjError = "Clave incorrecta";
+            }
+        }
+    );
+  }  
+  
+    
+    
+  msjEspacioLibre = "";  
+  clickComprobarEspacio() {
+    this.service.obtenerEspacioLibre(this.empresa.periodo)
+        .subscribe((data: EspacioLibreMensaje) => {
+            this.msjEspacioLibre = "Con el periodo de impresión indicado se tendría una autonomía aproximada de "
+                + data.mensaje;
+        })  
+  }  
+  
+  valuechange(event) {
+    this.msjEspacioLibre = "";    
+  }
+    
   onSubmitConfigGral() {
     if(this.formGeneral.valid) {
       if(this.cambiaPass) {  
@@ -97,21 +125,14 @@ export class VistaConfiguracionGralComponent implements OnInit {
       
       this.configGeneralDisabled = true;
     }
-  }
-
-
-  onSubmitModalPassword() {
-    if(this.formModal.valid) {
-      console.log(this.formModal.value);
-      this.ocultarModal = true;
-      this.configGeneralDisabled = false;
-    }
   }  
   
+  volver() {
+    this.location.back();          
+  }   
   openModal(id: string) {
       this.modalService.open(id);
   }
-
   closeModal(id: string) {
       this.modalService.close(id);
   }
